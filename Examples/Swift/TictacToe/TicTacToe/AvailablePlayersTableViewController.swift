@@ -96,8 +96,8 @@ extension AvailablePlayersTableViewController {
         } else {
             let alert = UIAlertController(title: "Alert",
                                           message: "The player is already playing!",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -150,8 +150,8 @@ extension AvailablePlayersTableViewController {
             showingmatchController?.dismiss(animated: true, completion: nil)
             let alert = UIAlertController(title: "The game has ended",
                                           message: "Sorry, your opponent leaved the game",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
             

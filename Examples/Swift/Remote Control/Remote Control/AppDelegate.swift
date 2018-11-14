@@ -13,13 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         let customRedColor = #colorLiteral(red: 0.9647058824, green: 0.3098039216, blue: 0.3098039216, alpha: 1);
         
         UINavigationBar.appearance().tintColor = customRedColor
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:customRedColor]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:customRedColor]
         
         return true
     }

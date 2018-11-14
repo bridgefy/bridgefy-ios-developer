@@ -352,18 +352,17 @@ private extension GameManager {
     
     func processReceivedPacket(_ packet: [String : Any], fromPlayer player: Player) {
         let eventType: EventType = EventType(rawValue: packet[event_key] as! Int)!
-        let content: [String : Any]!
         switch eventType {
         case .Handhsake:
-            content = packet[content_key] as! [String : Any]
+            guard let content = packet[content_key] as? [String : Any] else { return }
             processReceivedHandshake(content, fromPlayer: player)
         case .Available:
             processReceivedAvailableMsg(player)
         case .Move:
-            content = packet[content_key] as! [String : Any]
+            guard let content = packet[content_key] as? [String : Any] else { return }
             processReceivedMovement(content, fromPlayer: player)
         case .RefuseMatch:
-            content = packet[content_key] as! [String : Any]
+            guard let content = packet[content_key] as? [String : Any] else { return }
             processReceivedRefusal(content, fromPlayer: player)
         }
     }
@@ -400,11 +399,11 @@ private extension GameManager {
             }
             let alert = UIAlertController(title: "Request",
                                           message: "\(player.userName) wants to play. Do you accept the match?",
-                preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Not", style: UIAlertActionStyle.default, handler: { action in
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Not", style: .default, handler: { action in
                 self.sendRejection(to: player, withMatch: content[matchid_key] as! String, isBusy: false)
             }))
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                 self.acceptGame(from: player, withInfo: content)
             }))
             let window = UIApplication.shared.windows.last!
@@ -655,8 +654,8 @@ extension GameManager: BFTransmitterDelegate {
     func transmitter(_ transmitter: BFTransmitter, didFailForPacket packetID: String, error: Error?) {
         let alert = UIAlertController(title: "Alert",
                                       message: "There was an error sending a packet!",
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         let window = UIApplication.shared.windows.last!
         window.rootViewController?.present(alert, animated: true, completion: nil)
     }
@@ -722,8 +721,8 @@ extension GameManager: BFTransmitterDelegate {
     func transmitterNeedsInterfaceActivation(_ transmitter: BFTransmitter) {
         let alert = UIAlertController(title: "Alert",
                                       message: "TicTacToe needs bluetooth activation!",
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         let window = UIApplication.shared.windows.last!
         window.rootViewController?.present(alert, animated: true, completion: nil)
     }

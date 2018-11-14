@@ -13,11 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         UINavigationBar.appearance().tintColor = APP_RED_COLOR
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:APP_RED_COLOR]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor:APP_RED_COLOR]
         UITabBar.appearance().tintColor = APP_RED_COLOR
         UIButton.appearance().tintColor = APP_RED_COLOR
         

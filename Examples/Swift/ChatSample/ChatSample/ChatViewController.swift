@@ -70,8 +70,8 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             self.navigationItem.title = self.deviceName
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardHidden(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardShown(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardHidden(_:)), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     override open func didReceiveMemoryWarning() {
@@ -96,7 +96,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     func addRowToTable() {
         self.tableView.beginUpdates()
         let index = IndexPath(row:0, section: 0)
-        self.tableView.insertRows(at: [index], with: UITableViewRowAnimation.bottom)
+        self.tableView.insertRows(at: [index], with: UITableView.RowAnimation.bottom)
         self.tableView.endUpdates()
     }
     
@@ -152,7 +152,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     @objc func keyboardShown(_ notification: Notification) {
         var keyboardInfo = notification.userInfo!
-        let keyboardFrameBegin = keyboardInfo[UIKeyboardFrameEndUserInfoKey]
+        let keyboardFrameBegin = keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey]
         let frame: CGRect = (keyboardFrameBegin! as AnyObject).cgRectValue
         var padding: CGFloat = 0.0;
         if #available(iOS 11, *) {

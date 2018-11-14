@@ -95,7 +95,7 @@ extension MatchesTableViewController {
             let navController = segue.destination as! UINavigationController
             let matchController = navController.topViewController  as! MatchViewController
             showingmatchController = matchController
-            matchController.game = sender as! Game
+            matchController.game = sender as? Game
             matchController.activeGame = nil
         }
     }

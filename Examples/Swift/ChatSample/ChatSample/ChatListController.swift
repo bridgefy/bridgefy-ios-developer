@@ -45,7 +45,7 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatListController.savePeers),
-            name: NSNotification.Name.UIApplicationDidEnterBackground,
+            name: UIApplication.didEnterBackgroundNotification,
             object: nil)
 
         self.transmitter.start()
