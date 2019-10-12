@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Usage for sample purposes.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Usage for sample purposes.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
