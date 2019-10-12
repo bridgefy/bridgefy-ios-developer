@@ -25,30 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol BFTransmitterDelegate<NSObject>
 /**
- *  Indicates if a packet was added to the mesh forwarding process.
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param packetID ID of the packet.
- */
-- (void)transmitter:(BFTransmitter *)transmitter meshDidAddPacket:(NSString *)packetID;
-/**
- *  Is called when a packet that was sent via mesh reach its destination,
- *  don't depend on the call of this method, because due to the nature of the 
- *  forwarding mesh algorithm is not always called even if the receiver gets the packet.
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param packetID ID of the packet.
- */
-- (void)transmitter:(BFTransmitter *)transmitter didReachDestinationForPacket:( NSString *)packetID;
-/**
- *  Is almost the same than transmitter:meshDidAddPacket: with the difference that this method is called when
- *  the packet was first intented to send via direct transmission (for more details see BFSendingOption).
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param packetID ID of the packet.
- */
-- (void)transmitter:(BFTransmitter *)transmitter meshDidStartProcessForPacket:( NSString *)packetID;
-/**
  *  Indicates that a packet was successfully to another user using direct transmission
  * (for more details see BFSendingOption).
  *
@@ -64,25 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param error    Related error.
  */
 - (void)transmitter:(BFTransmitter *)transmitter didFailForPacket:(NSString *)packetID error:(NSError * _Nullable)error;
-/**
- *  Indicates that a packet was discarded of the mesh process.
- *  so it won't reach its destination. In the case of broadcast packets,
- *  a destination could be reached before the call of this method.
- *  (for more details see BFSendingOption).
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param packetIDs ID's of the packets that has been discarded.
- */
-- (void)transmitter:(BFTransmitter *)transmitter meshDidDiscardPackets:(NSArray<NSString *> *)packetIDs;
-/**
- *  Indicates that a packet was rejected of the mesh process because its size
- *  exceeds 2048 bytes, if you want to send a packet using the mesh option
- *  the packet must not exceed this limit.
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param packetID ID of the packet that mesh rejected.
- */
-- (void)transmitter:(BFTransmitter *)transmitter meshDidRejectPacketBySize:(NSString *)packetID;
 /**
  *  Indicates that a packet that is destined to the local user has been received.
  *
@@ -123,16 +80,58 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)transmitter:(BFTransmitter *)transmitter didFailAtStartWithError:(NSError *)error;
 
+@optional
+/**
+ *  Indicates if a packet was added to the mesh forwarding process.
+ *
+ *  @param transmitter The BFTransmitter instance that invokes the method.
+ *  @param packetID ID of the packet.
+ */
+- (void)transmitter:(BFTransmitter *)transmitter meshDidAddPacket:(NSString *)packetID;
+/**
+ *  Is called when a packet that was sent via mesh reach its destination,
+ *  don't depend on the call of this method, because due to the nature of the
+ *  forwarding mesh algorithm is not always called even if the receiver gets the packet.
+ *
+ *  @param transmitter The BFTransmitter instance that invokes the method.
+ *  @param packetID ID of the packet.
+ */
+- (void)transmitter:(BFTransmitter *)transmitter didReachDestinationForPacket:( NSString *)packetID;
+/**
+ *  Is almost the same than transmitter:meshDidAddPacket: with the difference that this method is called when
+ *  the packet was first intented to send via direct transmission (for more details see BFSendingOption).
+ *
+ *  @param transmitter The BFTransmitter instance that invokes the method.
+ *  @param packetID ID of the packet.
+ */
+- (void)transmitter:(BFTransmitter *)transmitter meshDidStartProcessForPacket:( NSString *)packetID;
+/**
+ *  Indicates that a packet was discarded of the mesh process.
+ *  so it won't reach its destination. In the case of broadcast packets,
+ *  a destination could be reached before the call of this method.
+ *  (for more details see BFSendingOption).
+ *
+ *  @param transmitter The BFTransmitter instance that invokes the method.
+ *  @param packetIDs ID's of the packets that has been discarded.
+ */
+- (void)transmitter:(BFTransmitter *)transmitter meshDidDiscardPackets:(NSArray<NSString *> *)packetIDs;
+/**
+ *  Indicates that a packet was rejected of the mesh process because its size
+ *  exceeds 2048 bytes, if you want to send a packet using the mesh option
+ *  the packet must not exceed this limit.
+ *
+ *  @param transmitter The BFTransmitter instance that invokes the method.
+ *  @param packetID ID of the packet that mesh rejected.
+ */
+- (void)transmitter:(BFTransmitter *)transmitter meshDidRejectPacketBySize:(NSString *)packetID;
 /**
  Method used to notify about certain events occurred in the transmitter (these are not necessarlly errors).
-
+ 
  @param transmitter The BFTransmitter instance that invokes the method.
  @param event       Kind of the event.
  @param description Description of the event.
  */
 - (void)transmitter:(BFTransmitter *)transmitter didOccurEvent:(BFEvent)event description:(NSString *)description;
-
-@optional
 /**
  *  Indicates that a secure connection has been established.
  *

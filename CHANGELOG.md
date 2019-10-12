@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.1.30] - 2018-03-02
+### Changed
+- The number of methods to be mandatory implemented in BFTransmitterDelegate has been reduced.
+
+## [0.1.29] - 2018-03-01
+### Fixed
+- Minor fixes related to logs.
+
 ## [0.1.28] - 2018-02-08
 ### Added
 - Start BFTransmitter with a preloaded license.

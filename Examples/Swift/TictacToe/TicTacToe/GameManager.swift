@@ -79,7 +79,7 @@ class GameManager: NSObject, Game, ActiveGame {
         loses = 0
         _lastMatchState = .mustContinue
         started = false
-        transmitter = BFTransmitter(apiKey: "47671d1a-af05-47a2-ac38-c40539700b78")
+        transmitter = BFTransmitter(apiKey: "YOUR API KEY")
         super.init()
     }
     

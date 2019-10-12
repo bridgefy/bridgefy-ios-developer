@@ -148,7 +148,19 @@ typedef NS_ENUM(NSUInteger, BFEvent) {
     /**
      * Indicates that the Wi-fi interface was disabled or the app doesn't have permissions.
      */
-    BFEventWifiDisabled
+    BFEventWifiDisabled,
+    /**
+     * Indicates that the binary part of a packet has been discarded
+     */
+    BFEventBinaryDiscarded,
+    /**
+     * Peer not found
+     */
+    BFEventPeerNotFound,
+    /**
+     * Invalid preloaded license
+     */
+    BFEventInvalidPreloadedLicense
 };
 
 /**

@@ -131,7 +131,6 @@ public func transmitter(_ transmitter: BFTransmitter, didOccur event: BFEvent, d
 ```
 
 ### 3. Nearby peer detection
-Detect peer connection:
 
 When a peer is detected, the connection is made automatically. The following method is invoked when a peer has established connection:
 
@@ -738,7 +737,7 @@ As you can see, you can still send a dictionary and a binary file together in th
 
 ### Mesh
 
-It's important to know that binary files sent using the method explained above can't travel through the mesh network (can't be sent using the option `BFSendingOptionMeshTransmission` nor `BFSendingOptionFullTransmission`, just `BFSendingOptionDirectTransmission`), the reason of this is that binary files regularly are too large and could slow down the performance of the mesh network, so files like pictures with very high resolution, mp3 files and others can't be added. Any way, if you really need to send a binary file using the mesh network you can add it as a value in the dictionary, just consider that any large payload will be rejected, the maximum size is 1024 bytes.
+It's important to know that binary files sent using the method explained above can't travel through the mesh network (can't be sent using the option `BFSendingOptionMeshTransmission` nor `BFSendingOptionFullTransmission`, just `BFSendingOptionDirectTransmission`), the reason of this is that binary files regularly are too large and could slow down the performance of the mesh network, so files like pictures with very high resolution, mp3 files and others can't be added. Any way, if you really need to send a binary file using the mesh network you can add it as a value in the dictionary, just consider that any large payload will be rejected, the maximum size is 2048 bytes.
 
 ### Broadcast messages
 
@@ -747,6 +746,24 @@ Broadcast messages are restricted to be sent using the mesh network. As a conseq
 ### Connections with Android devices
 
 The iOS framework uses Wi-Fi Peer-to-Peer and Bluetooth Low Energy (BLE) technologies. Wi-Fi peer-to-peer is fast: it can give you up to 2 mbps in the best cases. Unfortunately, it's only available on iOS devices, so any connection with an Android device will be established using BLE. This kind of connection has very low throughput (27 kbps in the best case, considering the restrictions of the OS). It implies that if you want to send a large file (let's say, 1 MB), it will take a really long time. In fact, Bridgefy framework restricts the size of a binary file to 120 KB in BLE (using direct transmission or `BFSendingOptionDirectTransmission`). Although the size of a dictionary isn't restricted, we don't recommend trying to send a large amount of data.
+
+### Maximum package sizes and throughput
+
+These are the allowed sizes for different kind of packages, packages that exceed these limits will be discarded:  
+
+**Dictionary through BLE:** Not restricted, but 120 KB as maximum is recommended.  
+**Dictionary through WiFi:** Not restricted.  
+**Binary data through BLE:** 120 KB  
+**Binary data through WiFi:** Not restricted.  
+**Mesh dictionary through BLE:** 1 KB  
+**Mesh dictionary through Wifi:** 2 KB  
+**Mesh binary data through BLE:** N/A  
+**Mesh binary data through BLE:** N/A  
+  
+The throughput was mentioned in a previous section, but it's listed below for the two types of connection:  
+  
+**WiFi:** 2 mbps best case. Only available to use between iOS devices.  
+**BLE:** 27 kbps best case.  
 
 [ADD_KEY]: https://confluence.atlassian.com/bitbucket/set-up-ssh-for-git-728138079.html
 [BRIDGEFY_WEB]: https://bridgefy.me/download-bridgefy.php
