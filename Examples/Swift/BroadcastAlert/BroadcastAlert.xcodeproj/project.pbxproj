@@ -123,7 +123,7 @@
 					51CA0CF01D50F1F60000B86C = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = FMC5MLL736;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1110;
 					};
 				};
 			};
@@ -314,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = transmitter.chat.BroadcastAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -334,7 +334,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = transmitter.chat.BroadcastAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
