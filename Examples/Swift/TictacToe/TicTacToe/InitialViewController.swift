@@ -15,6 +15,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presentationController?.delegate = self
         startButton.isEnabled = false
         startButton.backgroundColor = DISABLE_COLOR
         nameTextField.delegate = self
@@ -83,4 +84,12 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+}
+
+// - MARK: UIAdaptivePresentationControllerDelegate
+
+extension InitialViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
+    }
 }

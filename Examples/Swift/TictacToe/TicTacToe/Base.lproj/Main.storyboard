@@ -12,7 +12,7 @@
             <objects>
                 <navigationController id="eWt-tl-YFh" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t0y-oP-K8x">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.93781695450000002" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
@@ -33,11 +33,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hLg-IS-xrt">
-                                <rect key="frame" x="14" y="63" width="150" height="64"/>
+                                <rect key="frame" x="14" y="51" width="150" height="64"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jrc-O3-GdJ">
                                         <rect key="frame" x="0.0" y="35" width="150" height="29"/>
@@ -149,7 +149,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="powered_by_bridgefy" translatesAutoresizingMaskIntoConstraints="NO" id="1ea-YJ-aHW">
-                                <rect key="frame" x="319" y="64" width="85" height="26"/>
+                                <rect key="frame" x="319" y="52" width="85" height="26"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="BhH-E4-qKw"/>
@@ -157,10 +157,10 @@
                                 </constraints>
                             </imageView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLZ-gN-cjg" userLabel="Board Container">
-                                <rect key="frame" x="10" y="142" width="394" height="457"/>
+                                <rect key="frame" x="10" y="130" width="394" height="489"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qXa-fS-LBZ" customClass="TTTBoardView" customModule="TicTacToe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="31.666666666666657" width="394" height="394"/>
+                                        <rect key="frame" x="0.0" y="47.666666666666657" width="394" height="394"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="qXa-fS-LBZ" secondAttribute="height" multiplier="1:1" id="k6N-SK-phM"/>
                                         </constraints>
@@ -174,7 +174,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDB-CZ-KsM">
-                                <rect key="frame" x="10" y="609" width="394" height="92"/>
+                                <rect key="frame" x="10" y="629" width="394" height="92"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2La-A4-n6t" userLabel="Message Container">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="46"/>
@@ -379,7 +379,7 @@
                     <navigationItem key="navigationItem" title="Current match" id="2bO-GW-hWc">
                         <barButtonItem key="rightBarButtonItem" id="5Dt-HW-Zbd">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gAr-KV-cPu">
-                                <rect key="frame" x="334" y="13" width="60" height="30"/>
+                                <rect key="frame" x="334" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Leave">
@@ -505,7 +505,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="mrX-3x-WLf"/>
                     </navigationItem>
                     <connections>
-                        <segue destination="eWt-tl-YFh" kind="presentation" identifier="startMatch" id="nk4-5z-IRv"/>
+                        <segue destination="eWt-tl-YFh" kind="presentation" identifier="startMatch" modalPresentationStyle="fullScreen" id="nk4-5z-IRv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9dl-ap-6E3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,7 +572,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Other matches" id="Ybe-Mf-av9"/>
                     <connections>
-                        <segue destination="eWt-tl-YFh" kind="presentation" identifier="seeOthersMatch" id="eLI-cq-E2J"/>
+                        <segue destination="eWt-tl-YFh" kind="presentation" identifier="seeOthersMatch" modalPresentationStyle="fullScreen" id="eLI-cq-E2J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IuY-Em-xz7" userLabel="First Responder" sceneMemberID="firstResponder"/>
