@@ -154,8 +154,8 @@ extension TransferManager: BFTransmitterDelegate {
     func transmitterNeedsInterfaceActivation(_ transmitter: BFTransmitter) {
         let alert = UIAlertController(title: "Alert",
                                       message: "TwitterForwarder needs bluetooth activation!",
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                      preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         let window = UIApplication.shared.windows.last!
         window.rootViewController?.present(alert, animated: true, completion: nil)
     }

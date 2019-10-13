@@ -203,7 +203,7 @@
 					51C0E9161F16A2C300DF67EC = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = FMC5MLL736;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1110;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -419,7 +419,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "TwitterForwarder/TwitterForwarder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -445,7 +445,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TwitterForwarder/TwitterForwarder-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
