@@ -126,7 +126,7 @@ extension AvailablePlayersTableViewController {
         self.tableView.reloadData()
     }
     func gameManager(_ gameManager: GameManager, didDetectPlayerDisconnection player: Player) {
-        guard let index = players.index(of: player) else {
+        guard let index = players.firstIndex(of: player) else {
             return
         }
         players.remove(at: index)

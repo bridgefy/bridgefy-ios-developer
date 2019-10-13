@@ -239,7 +239,7 @@ extension GameManager {
             x_participant = opponentPlayer
             o_participant = currentPlayer
         }
-        let participants: [String: Any] = [x_key: x_participant, o_key: o_participant]
+        let participants: [String: Any] = [x_key: x_participant as Any, o_key: o_participant as Any]
         movePacket[participants_key] = participants
         movePacket[board_key] = board.map{ $0.map{ $0.rawValue }}
         movePacket[sequence_key] = matchSequence
@@ -490,7 +490,7 @@ extension GameManager {
     }
 
     func processOthersRefusal(matchId: String) {
-        guard let index = othersGames.index(where: { $0.gameId == matchId}) else{
+        guard let index = othersGames.firstIndex(where: { $0.gameId == matchId}) else{
             return
         }
         let othersGame = othersGames[index]
@@ -499,7 +499,7 @@ extension GameManager {
     }
     
     func processOthersAvailableMsg(playerId: String) {
-        guard let index = othersGames.index(where: { $0.player1Id ==  playerId || $0.player2Id ==  playerId }) else {
+        guard let index = othersGames.firstIndex(where: { $0.player1Id ==  playerId || $0.player2Id ==  playerId }) else {
             return
         }
         let othersGame = othersGames[index]
@@ -688,7 +688,7 @@ extension GameManager: BFTransmitterDelegate {
     
     func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
         
-        guard let index = players.index(where: { $0.identifier == user}) else {
+        guard let index = players.firstIndex(where: { $0.identifier == user}) else {
             return
         }
         let player = players[index]
