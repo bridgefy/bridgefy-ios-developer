@@ -151,7 +151,7 @@ open class ChatViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: Keyboard management
     
     @objc func keyboardShown(_ notification: Notification) {
-        var keyboardInfo = notification.userInfo!
+        let keyboardInfo = notification.userInfo!
         let keyboardFrameBegin = keyboardInfo[UIResponder.keyboardFrameEndUserInfoKey]
         let frame: CGRect = (keyboardFrameBegin! as AnyObject).cgRectValue
         var padding: CGFloat = 0.0;
