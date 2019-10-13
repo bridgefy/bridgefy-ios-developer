@@ -47,6 +47,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Usage for sample purpouses.</string>
+	<string>Usage for sample purposes.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Usage for sample purposes.</string>
 </dict>
 </plist>
