@@ -47,5 +47,7 @@
 	<string>Usage for sample purposes.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Usage for sample purposes.</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
