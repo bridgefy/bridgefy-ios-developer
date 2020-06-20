@@ -82,7 +82,25 @@ In info.plist, create an entry named `com.bridgefy.SDKLicense` and paste the tex
 
 ---
 
-## Basic usage
+## Operation modes
+
+### 1. Automatic
+
+Automatic operation mode is the same as in previous versions of the SDK, where all the connections are handled seamlessly by the SDK to create a mesh network. The size of this network depends on the number of devices connected and the environment as a variable factor, allowing you to join nodes in the same network or nodes in different networks.
+
+![alt Mesh Network](img/Mobile_Adhoc_Network.gif "Mesh Network")
+
+### 2. On-demand
+
+This is a new operation mode where the SDK notifies whenever a nearby device is detected, but it doesn't establish a connection; instead, the client app can choose to which nearby device connect. Once the connection is no longer required, it can be closed. You can connect to up to 5 devices at any given moment.
+
+![alt Node](img/single_node_network.gif "Single Node")
+
+It is essential to consider that in On-Demand mode for this version, **only direct messages are supported**; mesh and broadcast messages will be supported in a later version.
+
+---
+
+## Usage
 
 ### 1. Instance
 The following code shows how to create an instance of BFTransmitter (using your API key) and how to assign the delegate. This last action isn't mandatory but is necessary in order to be notified about connections and data reception:
@@ -116,6 +134,23 @@ transmitter.start()
 ```
 The first time the transmitter is started, a session will be automatically created. This session contains a unique identifier for the current user, and some other data necessary for the encryption. The session management will be discussed further on in the section "Session".
 
+By default the trasmitter starts using the `Automatic connection` mode; if you want to change the operation mode you have to pass it as a parameter when starting the transmitter using the following code:
+
+```objective-c
+//Objetive-C
+// Automatic mode
+[transmitter startWithConnectionMode:BFTransmitterConnectionModeAutomatic];
+// On-demand mode
+[transmitter startWithConnectionMode:BFTransmitterConnectionModeOnDemand];
+```
+```swift
+//Swift
+// Automatic mode
+transmitter.start(with: .automatic)
+// On-demand mode
+transmitter.start(with: .onDemand)
+```
+
 To stop it, use the following code:
 
 ```objective-c
@@ -145,6 +180,8 @@ public func transmitter(_ transmitter: BFTransmitter, didOccur event: BFEvent, d
 
 ### 3. Nearby peer detection
 
+#### Automatic mode
+
 When a peer is detected, the connection is made automatically. The following method is invoked when a peer has established connection:
 
 ```objective-c
@@ -172,6 +209,55 @@ public func transmitter(transmitter: BFTransmitter!, didDetectDisconnectionWithU
 **transmitter**: Instance of BFTransmitter invoking the method.
 
 **user**: Identifier of the disconnected user.
+
+#### On-demand mode
+
+When a nearby peer is detected, it is notified with the following transmitter delegate method.
+
+
+```objective-c
+//Objective-C
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didDetectNearbyUser:(nonnull NSString *)user
+```
+```swift
+//Swift
+func transmitter(_ transmitter: BFTransmitter, didDetectNearbyUser user: String)
+```
+**transmitter**: Instance of BFTransmitter invoking the method.
+
+**user**: Identifier for the user that has been detected.
+
+To establish a connection with a nearby peer, you have to invoke the following function passing the peer's ID with whom you want to connect.
+
+```objective-c
+//Objective-C
+[transmitter connectToUser:(nonnull NSString *) error:(NSError * _Nullable * _Nullable)];
+```
+```swift
+//Swift
+transmitter.connect(toUser: String, error: NSErrorPointer)
+```
+
+**user**: Identifier for the user that we want to connect.
+
+**error**: Reference to an NSError object, must be nil before the call to the method. If there's an error while connecting with the user, it will be assigned to it.
+
+To disconnect from a peer, you have to pass its ID to the function.
+
+```objective-c
+//Objective-C
+[transmitter disconnectFromUser:(nonnull NSString *) error:(NSError * _Nullable * _Nullable)];
+```
+```swift
+//Swift
+transmitter.disconnect(fromUser: String, error: NSErrorPointer)
+```
+
+**user**: Identifier for the user that we want to disconnect.
+
+**error**: Reference to an NSError object, must be nil before the call to the method. If there's an error while disconnectiong from the user, it will be assigned to it.
+
+After the disconnection occurs, you'll receive a notification via the `didDetectDisconnectWithUser` delegate method.
 
 ### 4. Send data
 The following method is used to send data to another peer. This method performs an initial validation over the received parameters, and if everything is correct, generates a packet identifier that is returned to the client. All of this initial process is synchronous. After this, the packet enters to an asynchronous process for the transmission of the packet.
