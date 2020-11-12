@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B2A89F6255CC99B000FDC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A89F5255CC99B000FDC45 /* Constants.swift */; };
+		3B2A89F8255CCEA4000FDC45 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A89F7255CCEA4000FDC45 /* SettingsTableViewController.swift */; };
 		51CA0CF51D50F1F60000B86C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA0CF41D50F1F60000B86C /* AppDelegate.swift */; };
 		51CA0CFA1D50F1F60000B86C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CA0CF81D50F1F60000B86C /* Main.storyboard */; };
 		51CA0CFC1D50F1F60000B86C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CA0CFB1D50F1F60000B86C /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B2A89F5255CC99B000FDC45 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B2A89F7255CCEA4000FDC45 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		51CA0CF11D50F1F60000B86C /* BroadcastAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BroadcastAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CA0CF41D50F1F60000B86C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51CA0CF91D50F1F60000B86C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				51D85FBD1D514F8E00A185A6 /* Notification.swift */,
 				51D85FBF1D514FAB00A185A6 /* SendNotificationViewController.swift */,
 				51D85FC11D514FC400A185A6 /* ReceivedNotificationsViewController.swift */,
+				3B2A89F5255CC99B000FDC45 /* Constants.swift */,
+				3B2A89F7255CCEA4000FDC45 /* SettingsTableViewController.swift */,
 			);
 			path = BroadcastAlert;
 			sourceTree = "<group>";
@@ -117,7 +123,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = "Bridgefy Inc.";
 				TargetAttributes = {
 					51CA0CF01D50F1F60000B86C = {
@@ -163,7 +169,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2A89F6255CC99B000FDC45 /* Constants.swift in Sources */,
 				51CA0CF51D50F1F60000B86C /* AppDelegate.swift in Sources */,
+				3B2A89F8255CCEA4000FDC45 /* SettingsTableViewController.swift in Sources */,
 				51D85FBE1D514F8E00A185A6 /* Notification.swift in Sources */,
 				51D85FC21D514FC400A185A6 /* ReceivedNotificationsViewController.swift in Sources */,
 				51D85FC01D514FAB00A185A6 /* SendNotificationViewController.swift in Sources */,
@@ -215,6 +223,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -239,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -271,6 +280,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -289,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -309,9 +319,9 @@
 					"$(PROJECT_DIR)/../../../",
 				);
 				INFOPLIST_FILE = BroadcastAlert/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = transmitter.chat.BroadcastAlert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bridgefy.samples.BroadcastAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
@@ -329,9 +339,9 @@
 					"$(PROJECT_DIR)/../../../",
 				);
 				INFOPLIST_FILE = BroadcastAlert/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = transmitter.chat.BroadcastAlert;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bridgefy.samples.BroadcastAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;

@@ -1,9 +1,5 @@
 //
-//  SendNotificationViewController.swift
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 8/2/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,10 +13,12 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
     
     fileprivate var transmitter: BFTransmitter
     fileprivate weak var receivedNotifsController: ReceivedNotificationsViewController? = nil
-    var sentNumber: Int
-    var receivedNumber: Int
+    private var sentNumber: Int
+    private var receivedNumber: Int
+    private var shouldVibrate = false
     
     //UI objects
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var uuidLabel: UILabel!
     @IBOutlet weak var sentNotificationsLabel: UILabel!
@@ -47,19 +45,50 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
 
         self.transmitter.start()
         //UI controls load
-        self.nameLabel.text = "Device name: \(UIDevice.current.name)"
-        self.uuidLabel.text = "User ID: \(self.truncatedUUID())"
+        self.nameLabel.text = UserDefaults.standard.string(forKey: Constants.username)
+        self.uuidLabel.text = self.truncatedUUID()
         self.refreshCounters()
         self.sentStatusLabel.text = ""
         self.sendButton.layer.cornerRadius = 14.0
         self.sendButton.layer.borderWidth = 2.0
         self.sendButton.layer.borderColor = UIColor.red.cgColor
         self.controlsContainer.layer.cornerRadius = 14.0
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil,
+                                                           style: .plain,
+                                                           target: nil,
+                                                           action: nil)
+        
+        shouldVibrate = UserDefaults.standard.bool(forKey: Constants.vibrationEnabled)
+        
+        registerForNotifications()
+    }
+    
+    func registerForNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(vibrationSettingChanged),
+                                               name: .vibrationNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(usernameWasUpdated),
+                                               name: .usernameNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(resetSentAlertsCounter),
+                                               name: .resetSentAlertNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(deleteReceivedAlerts),
+                                               name: .resetReceivedAlertsNotification,
+                                               object: nil)
     }
     
     func refreshCounters() {
-        self.sentNotificationsLabel.text = "Sent alerts: \(sentNumber)"
-        self.receivedNotificationsLabel.text = "Received alerts: \(receivedNumber)"
+        self.sentNotificationsLabel.text = "\(sentNumber)"
+        self.receivedNotificationsLabel.text = "\(receivedNumber)"
     }
     
     func truncatedUUID() -> String {
@@ -75,13 +104,41 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
         }
     }
     
+    // MARK: - Notification handlers
+    
+    @objc
+    func vibrationSettingChanged() {
+        shouldVibrate = UserDefaults.standard.bool(forKey: Constants.vibrationEnabled)
+    }
+    
+    @objc
+    func usernameWasUpdated() {
+        nameLabel.text = UserDefaults.standard.string(forKey: Constants.username)
+    }
+    
+    @objc
+    func resetSentAlertsCounter() {
+        sentNumber = 0
+        updateSentNotifications(sentNumber)
+        refreshCounters()
+    }
+    
+    @objc
+    func deleteReceivedAlerts() {
+        if ReceivedNotificationsViewController.clearReceivedNotifications() {
+            receivedNumber = 0
+            updateReceivedNotifications(receivedNumber)
+            refreshCounters()
+        }
+    }
+    
     // MARK: IB Actions
     
     @IBAction func sendNotification(_ sender: AnyObject) {
         //Sending the message.
         let dictionary: Dictionary<String, AnyObject> = ["number": (sentNumber + 1) as AnyObject,
-                                                         "device_name": UIDevice.current.name as AnyObject,
-                                                         "date_sent": floor(Date().timeIntervalSince1970 * 1000)  as AnyObject]
+                                                         "device_name": UserDefaults.standard.string(forKey: Constants.username) as AnyObject,
+                                                         "date_sent": floor(Date().timeIntervalSince1970 * 1000) as AnyObject]
         let options: BFSendingOption = [.broadcastReceiver, .meshTransmission]
         
         do {
@@ -98,7 +155,7 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
         // Packet added to mesh
         // Just called when the option BFSendingOptionMeshTransmission was used
         sentNumber += 1
-        self.sentStatusLabel.text = "Alert number \(sentNumber) is being broadcasted!"
+        self.sentStatusLabel.text = "Broadcasting alert number \(sentNumber)"
         self.updateSentNotifications(sentNumber)
         self.refreshCounters()
     }
@@ -151,7 +208,7 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectConnectionWithUser user: String) {
-        //A connection was detected (no necessarily secure)
+        // A connection was detected (no necessarily secure)
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectDisconnectionWithUser user: String) {
@@ -166,15 +223,28 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
     public func transmitter(_ transmitter: BFTransmitter, didOccur event: BFEvent, description: String)
     {
         print("Event reported: \(description)");
-    }
-    
-    public func transmitter(_ transmitter: BFTransmitter, shouldConnectSecurelyWithUser user: String) -> Bool {
-        return false//if True, it will establish connection with encryption capacities.
-        // Not necessary for this case.
+        
+        if event == .startFinished,
+           !UserDefaults.standard.bool(forKey: Constants.infoShowed) {
+            infoPressed(self)
+            UserDefaults.standard.setValue(true, forKey: Constants.infoShowed)
+        }
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didDetectSecureConnectionWithUser user: String) {
-            // A secure connection was detected,
+        // A secure connection was detected,
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, didDetectNearbyUser packetID: String) {
+        // A nearby user has been detected
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, didFailConnectingToUser packetID: String, error: Error) {
+        // An on-demand connection failed
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, userIsNotAvailable user: String) {
+        // A user is no longer nearby
     }
     
     // MARK: Persistence of indicators
@@ -203,6 +273,26 @@ open class SendNotificationViewController: UIViewController, BFTransmitterDelega
             return 0
         }
         return (value! as AnyObject).intValue
+    }
+    
+    // MARK: - Info method
+    
+    @IBAction func infoPressed(_ sender: Any) {
+        let alertController = UIAlertController(title: "Broadcast Alert",
+                                                message: "This app is designed to send and receive alerts without an internet connection",
+                                                preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK",
+                                     style: .default)
+        
+        alertController.addAction(okAction)
+        
+        present(alertController,
+                animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
 }

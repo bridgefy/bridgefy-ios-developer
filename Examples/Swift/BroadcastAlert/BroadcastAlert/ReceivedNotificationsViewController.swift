@@ -1,14 +1,10 @@
 //
-//  ReceivedNotificationsViewController.swift
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 8/2/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
 
-let notifsFile = "notifs.txt"
+let notificationsFile = "notifications.txt"
 
 open class ReceivedNotificationsViewController: UITableViewController {
     
@@ -51,15 +47,24 @@ open class ReceivedNotificationsViewController: UITableViewController {
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath)
         let notification: Notification = self.notifications.object(at: indexPath.item) as! Notification
-        let numberLabel = cell.contentView.viewWithTag(1001) as! UILabel
-        let fromLabel = cell.contentView.viewWithTag(1002) as! UILabel
-        let dateLabel = cell.contentView.viewWithTag(1003) as! UILabel
-        numberLabel.text = "Alert number: \(notification.number)"
-        fromLabel.text = "From user: \(notification.senderName) (\(notification.senderId))"
+        let fromUsernameLabel = cell.contentView.viewWithTag(1001) as! UILabel
+        let fromUUIDLabel = cell.contentView.viewWithTag(1002) as! UILabel
+        let alertNumberLabel = cell.contentView.viewWithTag(1003) as! UILabel
+        let dateLabel = cell.contentView.viewWithTag(1004) as! UILabel
+        let timeLabel = cell.contentView.viewWithTag(1005) as! UILabel
+        
+        fromUsernameLabel.text = notification.senderName
+        fromUUIDLabel.text = "(\(notification.senderId)"
+        
+        alertNumberLabel.text = "\(notification.number)"
+        
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd//MM//yyyy"
+        dateLabel.text = dateFormatter.string(from: notification.date)
+        
         dateFormatter.dateFormat = "HH:mm:ss"
-        let dateString = dateFormatter.string(from: notification.date as Date)
-        dateLabel.text = "Time: \(dateString)"
+        timeLabel.text = dateFormatter.string(from: notification.date)
+        
         return cell
     }
 
@@ -68,7 +73,7 @@ open class ReceivedNotificationsViewController: UITableViewController {
     // The methods in this section are not relevant to show
     // the BFTransmitter functionality.
 
-    class func addNotificationToFile(_ dictionary: [AnyHashable: Any], fromUUID uuid: String) {
+    static func addNotificationToFile(_ dictionary: [AnyHashable: Any], fromUUID uuid: String) {
         let notification = Notification()
         notification.number = (dictionary["number"] as! NSNumber).intValue
         notification.senderId = String(uuid[..<uuid.index(uuid.startIndex, offsetBy: 5)])
@@ -78,26 +83,38 @@ open class ReceivedNotificationsViewController: UITableViewController {
         notification.date = date
         let notifications: NSMutableArray = self.loadNotifications()
         notifications.insert(notification, at: 0)
-        let filePath = fullPathForFile(notifsFile)
+        let filePath = fullPathForFile(notificationsFile)
         let data = NSKeyedArchiver.archivedData(withRootObject: notifications)
         try? data.write(to: URL(fileURLWithPath: filePath), options: [.atomic])
     }
     
-    class func loadNotifications() -> NSMutableArray {
-        let filePath = fullPathForFile(notifsFile)
-        let data: Data? = try? Data(contentsOf: URL(fileURLWithPath: filePath))
-        if (data != nil)
-        {
-            return NSKeyedUnarchiver.unarchiveObject(with: data!) as! NSMutableArray
-        } else
-        {
+    static func loadNotifications() -> NSMutableArray {
+        let filePath = fullPathForFile(notificationsFile)
+        
+        guard
+            let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+            let mutableArray = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSMutableArray
+        else {
             return NSMutableArray()
         }
+        
+        return mutableArray
     }
 
-    class func fullPathForFile(_ file: String) -> String {
+    static func fullPathForFile(_ file: String) -> String {
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = URL(fileURLWithPath: path)
         return url.appendingPathComponent(file).path
+    }
+    
+    static func clearReceivedNotifications() -> Bool {
+        let filePath = fullPathForFile(notificationsFile)
+        let data = NSKeyedArchiver.archivedData(withRootObject: [])
+        do {
+            try data.write(to: URL(fileURLWithPath: filePath))
+            return true
+        } catch {
+            return false
+        }
     }
 }

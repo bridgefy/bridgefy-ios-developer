@@ -1,9 +1,5 @@
 //
-//  SettingsTableViewController.m
-//  BroadcastAlert
-//
-//  Created by Calvin on 9/1/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "SettingsTableViewController.h"
@@ -90,8 +86,6 @@
     
     [self.alertController addAction:cancelAction];
     [self.alertController addAction:okAction];
-    
-    self.alertController.view.tintColor = APP_RED_COLOR;
     
     [self presentViewController:self.alertController
                        animated:YES
@@ -190,7 +184,11 @@
 }
 
 - (void)openBridgefyPage {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://bridgefy.me"]];
+    [UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://bridgefy.me"]
+                                     options:@{}
+                           completionHandler:^(BOOL success) {
+        NSLog(@"Success");
+    }];
 }
 
 @end

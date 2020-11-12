@@ -1,17 +1,13 @@
 //
-//  ReceivedNotificationsViewController.m
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 7/27/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "Notification.h"
 #import "ReceivedNotificationsViewController.h"
 #import "Constants.h"
 
-#ifndef ReceivedNotifs
-#define ReceivedNotifs
+#ifndef ReceivedNotifications
+#define ReceivedNotificiations
 #define FULLPATH(X) [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] \
     stringByAppendingPathComponent:(X)]
 #define kNotificationsFile @"notifs.txt"

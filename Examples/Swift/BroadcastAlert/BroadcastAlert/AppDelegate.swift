@@ -1,9 +1,5 @@
 //
-//  AppDelegate.swift
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 8/2/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
@@ -15,6 +11,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().tintColor = Constants.redColor
+        
+        UITabBar.appearance().tintColor = Constants.redColor
+        
+        if UserDefaults.standard.string(forKey: Constants.username) == nil {
+            UserDefaults.standard.setValue(UIDevice.current.name, forKey: Constants.username)
+            UserDefaults.standard.setValue(true, forKey: Constants.vibrationEnabled)
+        }
+        
         return true
     }
 

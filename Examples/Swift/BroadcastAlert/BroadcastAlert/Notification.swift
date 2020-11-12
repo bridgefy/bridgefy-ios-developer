@@ -1,9 +1,5 @@
 //
-//  Notification.swift
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 8/2/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit

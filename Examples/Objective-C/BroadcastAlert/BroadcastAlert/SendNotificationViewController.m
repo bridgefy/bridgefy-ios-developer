@@ -1,9 +1,5 @@
 //
-//  SendNotificationViewController.m
-//  BroadcastAlert
-//
-//  Created by Daniel Heredia on 7/27/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "SendNotificationViewController.h"
@@ -241,16 +237,25 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
     }
 }
 
-- (BOOL)transmitter:(BFTransmitter *)transmitter shouldConnectSecurelyWithUser:(NSString *)user
-{
-    return NO; //if YES, it will establish connection with encryption capacities.
-    // Not necessary for this case.
-}
-
 - (void)transmitter:(BFTransmitter *)transmitter didDetectSecureConnectionWithUser:(NSString *)user
 {
     // A secure connection was detected
 }
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didDetectNearbyUser:(nonnull NSString *)user {
+    // A nearby user has been detected
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didFailConnectingToUser:(nonnull NSString *)user error:(nonnull NSError *)error {
+    // An on-demand connection has failed
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter userIsNotAvailable:(nonnull NSString *)user {
+    // A user is no longer nearby
+}
+
 
 #pragma mark - Persistence of indicators
 -(void)updateSentNotifications:(NSInteger)numNotifications
@@ -305,7 +310,7 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
 }
 
 - (void)usernameWasUpdated:(NSNotification *)notification {
-    self.nameLabel.text = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] stringForKey:USERNAME]];
+    self.nameLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:USERNAME];
 }
 
 - (void)resetSentAlertsCounter:(NSNotification *)notification {
