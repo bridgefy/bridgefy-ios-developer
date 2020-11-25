@@ -1,9 +1,5 @@
 //
-//  MatchViewController.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/22/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -171,7 +167,7 @@ class MatchViewController: UIViewController, TTTBoardViewDataSource, TTTBoardVie
     func endGameAndExit() {
         discardTimeout()
         activeGame?.endGame()
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func playNextGame(sender: UIButton) {
@@ -202,10 +198,10 @@ class MatchViewController: UIViewController, TTTBoardViewDataSource, TTTBoardVie
     }
     
     func discardTimeout() {
-        if let timeoutWorkItem = self.timeoutWorkItem, !timeoutWorkItem.isCancelled{
+        if let timeoutWorkItem = timeoutWorkItem, !timeoutWorkItem.isCancelled{
             timeoutWorkItem.cancel()
         }
-        self.timeoutWorkItem = nil
+        timeoutWorkItem = nil
     }
     
     deinit {

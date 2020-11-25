@@ -1,9 +1,5 @@
 //
-//  MatchesTableViewController.swift
-//  TicTacToe
-//
-//  Created by Danno on 6/27/17.
-//  Copyright © 2017 Daniel Heredia. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +12,7 @@ class MatchesTableViewController: UITableViewController, SpectatorDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameManager = (self.tabBarController as! TicTacToeTabBarController).gameManager
+        gameManager = (tabBarController as! TicTacToeTabBarController).gameManager
         gameManager.spectatorDelegate = self
         checkNoPlayersView()
     }
@@ -106,7 +102,7 @@ extension MatchesTableViewController {
 extension MatchesTableViewController {
     func gameManager(_ gameManager: GameManager, didDetectNewSpectatorGame othersGame: OthersGame) {
         checkNoPlayersView()
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func gameManager(_ gameManager: GameManager, didFinishGame othersGame: OthersGame) {

@@ -1,9 +1,5 @@
 //
-//  AvailablePlayersTableViewController.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/22/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -20,7 +16,7 @@ class AvailablePlayersTableViewController: UITableViewController, GameManagerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameManager = (self.tabBarController as! TicTacToeTabBarController).gameManager
+        gameManager = (tabBarController as! TicTacToeTabBarController).gameManager
         gameManager.delegate = self
         checkNoPlayersView()
         registerForNotifications()
@@ -28,7 +24,7 @@ class AvailablePlayersTableViewController: UITableViewController, GameManagerDel
     
     override func viewDidAppear(_ animated: Bool) {
         if (userName == nil) {
-            self.parent!.performSegue(withIdentifier: StoryboardSegues.setName, sender: self)
+            parent!.performSegue(withIdentifier: StoryboardSegues.setName, sender: self)
         } else if !gameManager.started {
             gameManager.start(withUsername: userName!)
             
@@ -98,7 +94,7 @@ extension AvailablePlayersTableViewController {
                                           message: "The player is already playing!",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -123,7 +119,7 @@ extension AvailablePlayersTableViewController {
     func gameManager(_ gameManager: GameManager, didDetectPlayerConnection player: Player) {
         players.append(player)
         checkNoPlayersView()
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     func gameManager(_ gameManager: GameManager, didDetectPlayerDisconnection player: Player) {
         guard let index = players.firstIndex(of: player) else {
@@ -131,10 +127,10 @@ extension AvailablePlayersTableViewController {
         }
         players.remove(at: index)
         checkNoPlayersView()
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     func gameManager(_ gameManager: GameManager, didDetectStatusChange status: PlayerStatus, withPlayer player: Player) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func gameManager(_ gameManager: GameManager, didAcceptGameWithPlayer player: Player) {
@@ -153,7 +149,7 @@ extension AvailablePlayersTableViewController {
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
             
         }
     }

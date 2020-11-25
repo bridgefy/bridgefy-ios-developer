@@ -1,9 +1,5 @@
 //
-//  GameTableViewCell.swift
-//  TicTacToe
-//
-//  Created by Danno on 6/30/17.
-//  Copyright © 2017 Daniel Heredia. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit

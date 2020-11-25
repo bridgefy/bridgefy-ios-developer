@@ -1,9 +1,5 @@
 //
-//  SettingsTableViewController.swift
-//  TicTacToe
-//
-//  Created by Calvin on 9/7/17.
-//  Copyright © 2017 Daniel Heredia. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -17,11 +13,11 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        gameManager = (self.tabBarController as! TicTacToeTabBarController).gameManager
+        gameManager = (tabBarController as! TicTacToeTabBarController).gameManager
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.usernameLabel.text = gameManager.username
+        usernameLabel.text = gameManager.username
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,18 +36,18 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            self.showTextAlert()
+            showTextAlert()
         } else if indexPath.row == 1 {
-            self.openBridgefyPage()
+            openBridgefyPage()
         }
     }
     
     func showTextAlert() {
-        self.alertController = UIAlertController(title: "Set the new username",
+        alertController = UIAlertController(title: "Set the new username",
                                                  message: nil,
                                                  preferredStyle: .alert)
         
-        self.alertController?.addTextField(configurationHandler: {[weak self] (textField : UITextField!) in
+        alertController?.addTextField(configurationHandler: {[weak self] (textField : UITextField!) in
             textField.placeholder = "New username"
             textField.autocapitalizationType = .words
             textField.delegate = self
@@ -68,12 +64,12 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         
         okAction.isEnabled = false
         
-        self.alertController?.addAction(cancelAction)
-        self.alertController?.addAction(okAction)
+        alertController?.addAction(cancelAction)
+        alertController?.addAction(okAction)
         
-        self.alertController?.view.tintColor = APP_RED_COLOR
+        alertController?.view.tintColor = APP_RED_COLOR
         
-        self.present(self.alertController!, animated: true, completion: nil)
+        present(alertController!, animated: true, completion: nil)
         
     }
     
@@ -81,15 +77,15 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         UserDefaults.standard.setValue(username, forKey: StoredValues.username)
         gameManager.stop()
         gameManager.start(withUsername: username)
-        self.usernameLabel.text = username;
+        usernameLabel.text = username;
     }
     
     func clearTableSelection() {
-        guard let indexPath = self.tableView.indexPathForSelectedRow else {
+        guard let indexPath = tableView.indexPathForSelectedRow else {
             return
         }
         
-        self.tableView .deselectRow(at: indexPath, animated: true)
+        tableView .deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - UITextField delegate methods
@@ -99,7 +95,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
             let originalString = text.replacingCharacters(in: range, with: string)
             let cleanText = self.cleanText(string: originalString)
             
-            self.alertController?.actions[1].isEnabled = cleanText.count > 0
+            alertController?.actions[1].isEnabled = cleanText.count > 0
         }
         
         return true

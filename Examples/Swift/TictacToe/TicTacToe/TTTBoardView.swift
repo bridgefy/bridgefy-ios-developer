@@ -1,9 +1,5 @@
 //
-//  TTTBoardView.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/2/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -52,7 +48,7 @@ class TTTBoardView: UIView {
             drawLine(startX: x, startY: y, endX: endX, endY: endY, context: context)
         }
 
-        guard let boardPositions = self.dataSource?.boardPositions(in: self) else {
+        guard let boardPositions = dataSource?.boardPositions(in: self) else {
             return
         }
         // Drawing code of the symbols

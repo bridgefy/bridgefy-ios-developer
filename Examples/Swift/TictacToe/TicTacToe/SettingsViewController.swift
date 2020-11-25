@@ -1,9 +1,5 @@
 //
-//  SettingsViewController.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/22/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +13,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameManager = (self.tabBarController as! TicTacToeTabBarController).gameManager
+        gameManager = (tabBarController as! TicTacToeTabBarController).gameManager
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,7 +35,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         UserDefaults.standard.setValue(nameTextField?.text, forKey: StoredValues.username)
         gameManager.stop()
         gameManager.start(withUsername: nameTextField.text!)
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         
     }
     
@@ -49,7 +45,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        view.endEditing(true)
         return false
     }
 

@@ -1,9 +1,5 @@
 //
-//  GameManager.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/23/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -84,10 +80,10 @@ class GameManager: NSObject, Game, ActiveGame {
     }
     
     func start(withUsername username: String) {
-        if self.started {
+        if started {
             return
         }
-        self.started = true
+        started = true
         self.username = username
         currentStatus = .Available
         transmitter.delegate = self
@@ -95,10 +91,10 @@ class GameManager: NSObject, Game, ActiveGame {
     }
     
     func stop() {
-        if !self.started {
+        if !started {
             return
         }
-        self.started = false
+        started = false
         transmitter.stop()
         for player in players {
             if delegate != nil {
@@ -140,7 +136,7 @@ extension GameManager {
         _boardState = intBoard.map{ $0.map{ TTTSymbol(rawValue: $0)! } }
         player.playerStatus = .Occupied
         _lastMatchState = .mustContinue
-        self.delegate?.gameManager(self, didAcceptGameWithPlayer: player)
+        delegate?.gameManager(self, didAcceptGameWithPlayer: player)
     }
     
     func continueGame(withContent content: [String : Any]) {
@@ -156,7 +152,7 @@ extension GameManager {
         if _lastMatchState != .mustContinue {
             updateScores(withResult: _lastMatchState)
         }
-        self.delegate?.gameManager(self, didReceiveOpponentMove: currentOpponent!)
+        delegate?.gameManager(self, didReceiveOpponentMove: currentOpponent!)
     }
     
     func checkMatchState() -> MatchState {
@@ -224,11 +220,11 @@ extension GameManager {
         movePacket[matchid_key] = currentMatchID
         
         let currentPlayer = [uuid_key: transmitter.currentUser!,
-                              nick_key: self.username,
-                              wins_key: self.wins] as [String : Any]
+                              nick_key: username,
+                              wins_key: wins] as [String : Any]
         let opponentPlayer = [uuid_key: currentOpponent!.identifier,
                               nick_key: currentOpponent!.userName,
-                              wins_key: self.loses] as [String : Any]
+                              wins_key: loses] as [String : Any]
         
         let x_participant: [String : Any]!
         let o_participant: [String : Any]!
@@ -303,7 +299,7 @@ private extension GameManager {
         let packet: [String : Any] = [ event_key: type.rawValue, content_key: packet ]
         do {
             
-            try self.transmitter.send(packet,
+            try transmitter.send(packet,
                                       toUser: player?.identifier,
                                       options: options)
         } catch let error as NSError {
@@ -376,7 +372,7 @@ private extension GameManager {
         }
         let rawStatus = content[status_key] as! Int
         player.playerStatus = PlayerStatus(rawValue: rawStatus)!
-        self.processOthersAvailableMsg(playerId: player.identifier)
+        processOthersAvailableMsg(playerId: player.identifier)
         if delegate != nil && !player.connectionNotified{
             player.connectionNotified = true
             delegate?.gameManager(self, didDetectPlayerConnection: player)
@@ -394,7 +390,7 @@ private extension GameManager {
             let sequence: Int = content[sequence_key] as! Int
             if sequence > 1 {
                 // Should be an expired move
-                self.sendRejection(to: player, withMatch: content[matchid_key] as! String, isBusy: false)
+                sendRejection(to: player, withMatch: content[matchid_key] as! String, isBusy: false)
                 return
             }
             let alert = UIAlertController(title: "Request",
@@ -413,7 +409,7 @@ private extension GameManager {
             if (content[matchid_key] as! String) == currentMatchID {
                 continueGame(withContent: content)
             } else {
-                self.sendRejection(to: player, withMatch: content[matchid_key] as! String, isBusy: true)
+                sendRejection(to: player, withMatch: content[matchid_key] as! String, isBusy: true)
             }
         }
         
@@ -427,8 +423,8 @@ private extension GameManager {
         
         if currentMatchID == match_id {
             clearGame()
-            if self.delegate != nil {
-                self.delegate?.gameManager(self, didPlayerLeaveGame: player)
+            if delegate != nil {
+                delegate?.gameManager(self, didPlayerLeaveGame: player)
             }
         }
         
@@ -517,7 +513,7 @@ private extension GameManager {
     func updateStatus(_ status: PlayerStatus, forPlayer player: Player) {
         if player.playerStatus != status {
             player.playerStatus = status
-            self.delegate?.gameManager(self, didDetectStatusChange: player.playerStatus, withPlayer: player)
+            delegate?.gameManager(self, didDetectStatusChange: player.playerStatus, withPlayer: player)
         }
     }
     
@@ -611,7 +607,7 @@ extension GameManager {
     func endGame() {
         if currentMatchID != nil {
             updateStatus(.Available, forPlayer: currentOpponent!)
-            self.sendRejection(to: currentOpponent!,
+            sendRejection(to: currentOpponent!,
                                withMatch: currentMatchID!,
                                isBusy: false)
         }
@@ -713,9 +709,16 @@ extension GameManager: BFTransmitterDelegate {
         
     }
     
-    func transmitter(_ transmitter: BFTransmitter, shouldConnectSecurelyWithUser user: String) -> Bool {
-        //We want to establish secure connection with all the users.
-        return true
+    func transmitter(_ transmitter: BFTransmitter, didDetectNearbyUser user: String) {
+        // A nearby user was detected
+    }
+    
+    func transmitter(_ transmitter: BFTransmitter, didFailConnectingToUser user: String, error: Error) {
+        // An on-demand connection with a user has failed
+    }
+    
+    func transmitter(_ transmitter: BFTransmitter, userIsNotAvailable user: String) {
+        // A user is not nearby anymore
     }
     
     func transmitterNeedsInterfaceActivation(_ transmitter: BFTransmitter) {

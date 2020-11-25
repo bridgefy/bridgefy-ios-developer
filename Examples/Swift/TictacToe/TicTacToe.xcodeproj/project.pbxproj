@@ -21,8 +21,6 @@
 		5157A0211EB92C0D00D5A623 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5157A01F1EB92C0D00D5A623 /* Main.storyboard */; };
 		5157A0231EB92C0D00D5A623 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5157A0221EB92C0D00D5A623 /* Assets.xcassets */; };
 		5157A0261EB92C0D00D5A623 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5157A0241EB92C0D00D5A623 /* LaunchScreen.storyboard */; };
-		5157A0311EB92C0D00D5A623 /* TicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157A0301EB92C0D00D5A623 /* TicTacToeTests.swift */; };
-		5157A03C1EB92C0D00D5A623 /* TicTacToeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157A03B1EB92C0D00D5A623 /* TicTacToeUITests.swift */; };
 		5157A04C1EB948CE00D5A623 /* TTTBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157A04B1EB948CE00D5A623 /* TTTBoardView.swift */; };
 		5176155E1F07149E00644C10 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176155D1F07149E00644C10 /* GameTableViewCell.swift */; };
 		519D69831ED4E90F00271B2C /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D69821ED4E90F00271B2C /* GameManager.swift */; };
@@ -85,11 +83,7 @@
 		5157A0251EB92C0D00D5A623 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5157A0271EB92C0D00D5A623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5157A02C1EB92C0D00D5A623 /* TicTacToeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacToeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5157A0301EB92C0D00D5A623 /* TicTacToeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeTests.swift; sourceTree = "<group>"; };
-		5157A0321EB92C0D00D5A623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5157A0371EB92C0D00D5A623 /* TicTacToeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TicTacToeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5157A03B1EB92C0D00D5A623 /* TicTacToeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeUITests.swift; sourceTree = "<group>"; };
-		5157A03D1EB92C0D00D5A623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5157A04B1EB948CE00D5A623 /* TTTBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTTBoardView.swift; sourceTree = "<group>"; };
 		5176155D1F07149E00644C10 /* GameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		519D69731ED48E7200271B2C /* BFTransmitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BFTransmitter.framework; sourceTree = "<group>"; };
@@ -133,8 +127,6 @@
 			children = (
 				51B9BE9A1EDC998500B8839C /* BFTransmitter.framework */,
 				5157A01A1EB92C0D00D5A623 /* TicTacToe */,
-				5157A02F1EB92C0D00D5A623 /* TicTacToeTests */,
-				5157A03A1EB92C0D00D5A623 /* TicTacToeUITests */,
 				5157A0191EB92C0D00D5A623 /* Products */,
 				519D69721ED48E7200271B2C /* Frameworks */,
 			);
@@ -170,24 +162,6 @@
 				519D69881ED5007D00271B2C /* Constants.swift */,
 			);
 			path = TicTacToe;
-			sourceTree = "<group>";
-		};
-		5157A02F1EB92C0D00D5A623 /* TicTacToeTests */ = {
-			isa = PBXGroup;
-			children = (
-				5157A0301EB92C0D00D5A623 /* TicTacToeTests.swift */,
-				5157A0321EB92C0D00D5A623 /* Info.plist */,
-			);
-			path = TicTacToeTests;
-			sourceTree = "<group>";
-		};
-		5157A03A1EB92C0D00D5A623 /* TicTacToeUITests */ = {
-			isa = PBXGroup;
-			children = (
-				5157A03B1EB92C0D00D5A623 /* TicTacToeUITests.swift */,
-				5157A03D1EB92C0D00D5A623 /* Info.plist */,
-			);
-			path = TicTacToeUITests;
 			sourceTree = "<group>";
 		};
 		515BEE271F0C0BEE000C05EA /* Controllers */ = {
@@ -297,7 +271,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 1110;
-				ORGANIZATIONNAME = "Daniel Heredia";
+				ORGANIZATIONNAME = "Bridgefy Inc.";
 				TargetAttributes = {
 					5157A0171EB92C0D00D5A623 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -415,7 +389,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5157A0311EB92C0D00D5A623 /* TicTacToeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +396,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5157A03C1EB92C0D00D5A623 /* TicTacToeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +559,7 @@
 					"$(PROJECT_DIR)/../../../",
 				);
 				INFOPLIST_FILE = TicTacToe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bridgefy.samples.tic-tac-toe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -612,7 +584,7 @@
 					"$(PROJECT_DIR)/../../../",
 				);
 				INFOPLIST_FILE = TicTacToe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bridgefy.samples.tic-tac-toe";
 				PRODUCT_NAME = "$(TARGET_NAME)";

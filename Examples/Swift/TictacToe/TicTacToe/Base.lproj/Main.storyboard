@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Mnl-Xe-P3r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Mnl-Xe-P3r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -213,7 +213,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="103-5t-irJ" userLabel="Continue Button Container">
                                         <rect key="frame" x="0.0" y="46" width="394" height="46"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4b0-zp-mNc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4b0-zp-mNc">
                                                 <rect key="frame" x="0.0" y="5.6666666666666288" width="394" height="35"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -315,12 +315,6 @@
                             <mask key="constraints">
                                 <exclude reference="4Ab-3a-Sub"/>
                                 <exclude reference="vMi-uV-IWB"/>
-                                <exclude reference="4cO-hT-5aM"/>
-                                <exclude reference="A6k-FX-RVy"/>
-                                <exclude reference="K09-RT-gQs"/>
-                                <exclude reference="Y7I-an-3i5"/>
-                                <exclude reference="euD-wu-8S7"/>
-                                <exclude reference="v2U-BC-Rdf"/>
                                 <exclude reference="5M4-HS-dfH"/>
                                 <exclude reference="IRL-aY-Bsl"/>
                                 <exclude reference="RbG-gD-810"/>
@@ -334,6 +328,12 @@
                                 <exclude reference="UQA-JK-XNN"/>
                                 <exclude reference="VZt-HQ-0gN"/>
                                 <exclude reference="spj-ER-tcV"/>
+                                <exclude reference="4cO-hT-5aM"/>
+                                <exclude reference="A6k-FX-RVy"/>
+                                <exclude reference="K09-RT-gQs"/>
+                                <exclude reference="Y7I-an-3i5"/>
+                                <exclude reference="euD-wu-8S7"/>
+                                <exclude reference="v2U-BC-Rdf"/>
                                 <exclude reference="Khl-ug-bVW"/>
                                 <exclude reference="i47-NK-X75"/>
                                 <exclude reference="sCg-nc-RTy"/>
@@ -342,23 +342,20 @@
                         <variation key="heightClass=compact">
                             <mask key="constraints">
                                 <include reference="4Ab-3a-Sub"/>
-                                <include reference="4cO-hT-5aM"/>
-                                <exclude reference="euD-wu-8S7"/>
-                                <include reference="v2U-BC-Rdf"/>
                                 <include reference="erS-my-bkR"/>
                                 <include reference="qK5-SV-AtK"/>
                                 <include reference="qzQ-yl-DXI"/>
                                 <include reference="7UB-zk-Nla"/>
                                 <include reference="UQA-JK-XNN"/>
+                                <include reference="4cO-hT-5aM"/>
+                                <exclude reference="euD-wu-8S7"/>
+                                <include reference="v2U-BC-Rdf"/>
                                 <include reference="i47-NK-X75"/>
                                 <include reference="sCg-nc-RTy"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
-                                <include reference="A6k-FX-RVy"/>
-                                <include reference="K09-RT-gQs"/>
-                                <include reference="Y7I-an-3i5"/>
                                 <exclude reference="5M4-HS-dfH"/>
                                 <include reference="IRL-aY-Bsl"/>
                                 <include reference="RbG-gD-810"/>
@@ -367,6 +364,9 @@
                                 <exclude reference="3gL-4R-Ot1"/>
                                 <include reference="VZt-HQ-0gN"/>
                                 <include reference="spj-ER-tcV"/>
+                                <include reference="A6k-FX-RVy"/>
+                                <include reference="K09-RT-gQs"/>
+                                <include reference="Y7I-an-3i5"/>
                                 <include reference="Khl-ug-bVW"/>
                             </mask>
                         </variation>
@@ -378,7 +378,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Current match" id="2bO-GW-hWc">
                         <barButtonItem key="rightBarButtonItem" id="5Dt-HW-Zbd">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gAr-KV-cPu">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="gAr-KV-cPu">
                                 <rect key="frame" x="334" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -472,7 +472,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Danno" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyD-D1-IEY">
                                             <rect key="frame" x="28" y="15.666666666666664" width="280" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" systemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76w-RX-9im">
@@ -608,7 +608,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhQ-jx-CHc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhQ-jx-CHc">
                                 <rect key="frame" x="50" y="129" width="314" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -760,10 +760,6 @@ Visit www.bridgefy.me</string>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="FOV-Pv-iWU"/>
-                                <exclude reference="MBA-uh-Fht"/>
-                                <exclude reference="fvQ-yS-DmH"/>
-                                <exclude reference="gwF-ih-3p4"/>
                                 <exclude reference="81c-7a-ns0"/>
                                 <exclude reference="OTm-0X-5ju"/>
                                 <exclude reference="Q8V-iS-kGl"/>
@@ -778,8 +774,6 @@ Visit www.bridgefy.me</string>
                                 <exclude reference="auz-y7-5Dg"/>
                                 <exclude reference="m3f-pc-Isf"/>
                                 <exclude reference="zh4-XR-1ks"/>
-                                <exclude reference="1yE-33-ZLg"/>
-                                <exclude reference="xvN-7g-Ma9"/>
                                 <exclude reference="Ihr-P3-BjM"/>
                                 <exclude reference="Jly-31-UZ6"/>
                                 <exclude reference="TS9-Tl-6BO"/>
@@ -787,11 +781,16 @@ Visit www.bridgefy.me</string>
                                 <exclude reference="Z2t-8V-qBG"/>
                                 <exclude reference="dbm-q5-mT1"/>
                                 <exclude reference="lOA-vz-TAU"/>
+                                <exclude reference="FOV-Pv-iWU"/>
+                                <exclude reference="MBA-uh-Fht"/>
+                                <exclude reference="fvQ-yS-DmH"/>
+                                <exclude reference="gwF-ih-3p4"/>
+                                <exclude reference="1yE-33-ZLg"/>
+                                <exclude reference="xvN-7g-Ma9"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
-                                <include reference="MBA-uh-Fht"/>
                                 <include reference="OTm-0X-5ju"/>
                                 <include reference="Q8V-iS-kGl"/>
                                 <include reference="aAk-Dc-209"/>
@@ -800,28 +799,29 @@ Visit www.bridgefy.me</string>
                                 <include reference="PAY-kZ-TH2"/>
                                 <include reference="auz-y7-5Dg"/>
                                 <include reference="m3f-pc-Isf"/>
-                                <include reference="xvN-7g-Ma9"/>
                                 <include reference="Ihr-P3-BjM"/>
                                 <include reference="Jly-31-UZ6"/>
                                 <include reference="TS9-Tl-6BO"/>
                                 <include reference="dbm-q5-mT1"/>
+                                <include reference="MBA-uh-Fht"/>
+                                <include reference="xvN-7g-Ma9"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
-                                <include reference="FOV-Pv-iWU"/>
-                                <include reference="fvQ-yS-DmH"/>
-                                <include reference="gwF-ih-3p4"/>
                                 <include reference="81c-7a-ns0"/>
                                 <include reference="Rom-SV-Zhp"/>
                                 <include reference="r3N-WU-l6g"/>
                                 <include reference="K4i-kh-9UV"/>
                                 <include reference="Nlc-XM-9Vb"/>
                                 <include reference="zh4-XR-1ks"/>
-                                <include reference="1yE-33-ZLg"/>
                                 <include reference="Tla-ea-alU"/>
                                 <include reference="Z2t-8V-qBG"/>
                                 <include reference="lOA-vz-TAU"/>
+                                <include reference="FOV-Pv-iWU"/>
+                                <include reference="fvQ-yS-DmH"/>
+                                <include reference="gwF-ih-3p4"/>
+                                <include reference="1yE-33-ZLg"/>
                             </mask>
                         </variation>
                     </view>
@@ -860,7 +860,7 @@ Visit www.bridgefy.me</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
-                            <tableViewSection footerTitle="Bridgefy Inc. 2017. All Rights Reserved." id="P8k-an-ajM">
+                            <tableViewSection footerTitle="Bridgefy Inc. 2020. All Rights Reserved." id="P8k-an-ajM">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="cqN-y8-rdU">
                                         <rect key="frame" x="0.0" y="28" width="414" height="64"/>
@@ -931,6 +931,9 @@ Visit www.bridgefy.me</string>
             <point key="canvasLocation" x="-508" y="2263.7181409295354"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eLI-cq-E2J"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="players_deselected" width="25" height="25"/>
         <image name="players_selected" width="25" height="25"/>
@@ -939,8 +942,8 @@ Visit www.bridgefy.me</string>
         <image name="settings_selected" width="25" height="25"/>
         <image name="versus_deselected" width="25" height="25"/>
         <image name="versus_selected" width="25" height="25"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="eLI-cq-E2J"/>
-    </inferredMetricsTieBreakers>
 </document>

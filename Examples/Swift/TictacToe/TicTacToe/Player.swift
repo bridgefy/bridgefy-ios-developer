@@ -1,9 +1,5 @@
 //
-//  Player.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/23/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -33,7 +29,7 @@ class Player: NSObject {
     
     init(_ identifier: String) {
         self.identifier = identifier
-        self.playerStatus = .NoAvailable
-        self.connectionNotified = false
+        playerStatus = .NoAvailable
+        connectionNotified = false
     }
 }

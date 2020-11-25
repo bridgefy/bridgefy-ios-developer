@@ -1,9 +1,5 @@
 //
-//  PlayerTableViewCell.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/29/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit

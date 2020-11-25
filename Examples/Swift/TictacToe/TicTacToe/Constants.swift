@@ -1,9 +1,5 @@
 //
-//  Constants.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/23/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import Foundation

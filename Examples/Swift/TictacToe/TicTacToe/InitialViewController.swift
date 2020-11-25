@@ -1,9 +1,5 @@
 //
-//  InitialViewController.swift
-//  TicTacToe
-//
-//  Created by Bridgefy on 5/22/17.
-//  Copyright © 2017 Bridgefy. All rights reserved.
+//  Copyright © 2020 Bridgefy. All rights reserved.
 //
 
 import UIKit
@@ -71,14 +67,14 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationNames.userReady),
                                         object: self,
                                         userInfo: userInfo)
-        self.dismiss(animated: true)
+        dismiss(animated: true)
         
     }
     
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text != "" {
-            self.startApp(sender: startButton)
+            startApp(sender: startButton)
         }
         
         return true
