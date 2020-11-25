@@ -1,9 +1,5 @@
 //
-//  InputTextViewController.swift
-//  Remote Control
-//
-//  Created by Calvin on 7/11/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
@@ -16,13 +12,8 @@ class InputTextViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.textField.delegate = self
-        self.currentTextMessageLabel.text = ""
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        textField.delegate = self
+        currentTextMessageLabel.text = ""
     }
     
     // MARK: - UITextFieldDelegate methods
@@ -38,11 +29,10 @@ class InputTextViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let message = textField.text
-        self.currentTextMessageLabel.text = message
+        currentTextMessageLabel.text = message
         textField.text = ""
         
-        if (self.tabBarController != nil) {
-            let tabBarController = self.tabBarController as! AdminViewTabBarController
+        if let tabBarController = tabBarController as? AdminViewTabBarController {
             tabBarController.send(object: message as Any, sender: self)
         }
     }

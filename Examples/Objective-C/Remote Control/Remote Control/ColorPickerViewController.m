@@ -1,9 +1,5 @@
 //
-//  ColorPickerViewController.m
-//  Remote Control
-//
-//  Created by Calvin on 7/7/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "ColorPickerViewController.h"
@@ -30,11 +26,6 @@
     
     self.colorView.layer.borderWidth = 3.0;
     self.colorView.layer.borderColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.7].CGColor;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)slidersValueChanged:(id)sender {

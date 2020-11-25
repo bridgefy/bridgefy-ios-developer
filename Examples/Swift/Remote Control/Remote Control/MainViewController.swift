@@ -1,9 +1,5 @@
 //
-//  MainViewController.swift
-//  Remote Control
-//
-//  Created by Calvin on 7/11/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +13,7 @@ let kImageKey = "image"
 let kColorKey = "color"
 let kTextKey = "text"
 
-enum Comand : Int {
+enum Command : Int {
     case image = 1
     case color
     case flashlight
@@ -35,18 +31,18 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil);
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil);
         
         // Transmitter initialization
         BFTransmitter.setLogLevel(.error)
-        self.transmitter = BFTransmitter(apiKey: "YOUR API KEY")
-        self.transmitter?.delegate = self
-        self.transmitter?.isBackgroundModeEnabled = true
-        self.transmitter?.start()
+        transmitter = BFTransmitter(apiKey: "YOUR API KEY")
+        transmitter?.delegate = self
+        transmitter?.isBackgroundModeEnabled = true
+        transmitter?.start()
         
         // Instruction for the user
         let clientMessage = "Client Screen\n\n Long press with one finger to go to the admin panel. This will allow you to send commands to nearby devices."
-        self.showText(clientMessage)
+        showText(clientMessage)
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +52,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     
     @IBAction func longPressDetected(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            self.showAdminDialog()
+            showAdminDialog()
         }
     }
     
@@ -76,7 +72,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         
-        self.present(alertController, animated: true)
+        present(alertController, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,15 +88,15 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
         dict[kIdKey] = floor(Date.init().timeIntervalSince1970 * 1000) as Any
         
         if sender is ImagePickerViewController {
-            dict[kCommandKey] = Comand.image.rawValue as Any
+            dict[kCommandKey] = Command.image.rawValue as Any
             dict[kImageKey] = object
         } else if sender is ColorPickerViewController {
-            dict[kCommandKey] = Comand.color.rawValue as Any
+            dict[kCommandKey] = Command.color.rawValue as Any
             dict[kColorKey] = object
         } else if sender is FlashlightViewController {
-            dict[kCommandKey] = Comand.flashlight.rawValue as Any
+            dict[kCommandKey] = Command.flashlight.rawValue as Any
         } else if sender is InputTextViewController {
-            dict[kCommandKey] = Comand.text.rawValue as Any
+            dict[kCommandKey] = Command.text.rawValue as Any
             dict[kTextKey] = object
         } else {
             print("ERROR: Unknown sender")
@@ -110,7 +106,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
         let options: BFSendingOption = [.broadcastReceiver, .meshTransmission]
         
         do {
-            try self.transmitter?.send(dict, toUser: nil, options: options)
+            try transmitter?.send(dict, toUser: nil, options: options)
         } catch let err as NSError {
             print("ERROR: \(err.localizedDescription)")
         }
@@ -121,7 +117,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     // MARK: - BFTransmitterDelegate
     
     public func transmitter(_ transmitter: BFTransmitter, meshDidAddPacket packetID: String) {
-        
+        //Packet added to mesh
     }
     
     public func transmitter(_ transmitter: BFTransmitter, didReachDestinationForPacket packetID: String) {
@@ -142,7 +138,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     }
     
     public func transmitter(_ transmitter: BFTransmitter, meshDidDiscardPackets packetIDs: [String]) {
-        //A mesh message was discared and won't still be transmitted.
+        //A mesh message was discarded and won't still be transmitted.
         
     }
     
@@ -159,7 +155,7 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
                             mesh: Bool) {
         // A dictionary was received by BFTransmitter.
         
-        self.processReceived(dict: dictionary)
+        processReceived(dict: dictionary)
         
         
     }
@@ -182,13 +178,21 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
         print("Event reported: \(description)");
     }
     
-    public func transmitter(_ transmitter: BFTransmitter, shouldConnectSecurelyWithUser user: String) -> Bool {
-        return false//if True, it will establish connection with encryption capacities.
-        // Not necessary for this case.
+    public func transmitter(_ transmitter: BFTransmitter, didDetectSecureConnectionWithUser user: String) {
+        debugPrint("Did detect secure connection with user \(user)")
+        // A secure connection was detected,
     }
     
-    public func transmitter(_ transmitter: BFTransmitter, didDetectSecureConnectionWithUser user: String) {
-        // A secure connection was detected,
+    public func transmitter(_ transmitter: BFTransmitter, didDetectNearbyUser user: String) {
+        // A nearby user was detected
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, didFailConnectingToUser user: String, error: Error) {
+        // An on-demand connection with a user has failed
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, userIsNotAvailable user: String) {
+        // A user is not nearby anymore
     }
     
     // MARK: -
@@ -201,22 +205,22 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
         
         let receivedID = dict[kIdKey] as! Double
         
-        if !self.update(lastId: receivedID) {
+        if !update(lastId: receivedID) {
             // Command is ignored
             return
         }
         
-        let cmd: Comand = Comand(rawValue: dict[kCommandKey] as! Int)!
+        let cmd: Command = Command(rawValue: dict[kCommandKey] as! Int)!
         
         switch cmd {
         case .image:
-            self.showImage(from: dict)
+            showImage(from: dict)
         case .color:
-            self.showColor(from: dict)
+            showColor(from: dict)
         case .flashlight:
-            self.turnOnFlashlight(flag: true)
+            turnOnFlashlight(flag: true)
         case .text:
-            self.showText(from: dict)
+            showText(from: dict)
         }
         
     }
@@ -224,13 +228,13 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     func showImage(from dictionary: [String: Any]) {
         let imageIndex = dictionary[kImageKey] as! Int
         
-        if imageIndex > self.images.count {
+        if imageIndex > images.count {
             return
         }
         
-        self.resetView()
-        self.imageView.image = UIImage(named: self.images[imageIndex])
-        self.imageView.isHidden = false
+        resetView()
+        imageView.image = UIImage(named: images[imageIndex])
+        imageView.isHidden = false
     }
     
     func showColor(from dictionary: [String: Any]) {
@@ -240,8 +244,8 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
                                     blue: CGFloat(c & 0xFF) / 255.0,
                                     alpha: CGFloat((c >> 24) & 0xFF) / 255.0)
         
-        self.resetView()
-        self.view.backgroundColor = receivedColor
+        resetView()
+        view.backgroundColor = receivedColor
     }
     
     func turnOnFlashlight(flag: Bool) {
@@ -267,17 +271,17 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
                     return
                 } else {
                     flashlight.torchMode = .on
-                    self.resetView()
-                    self.imageView.image = #imageLiteral(resourceName: "Flashlight")
-                    self.imageView.isHidden = false
-                    self.perform(#selector(turnOffFlashlight),
+                    resetView()
+                    imageView.image = #imageLiteral(resourceName: "Flashlight")
+                    imageView.isHidden = false
+                    perform(#selector(turnOffFlashlight),
                                  with: nil,
                                  afterDelay: 15.0)
                 }
                 
             } else {
                 flashlight.torchMode = .off
-                self.resetView()
+                resetView()
             }
             
             flashlight.unlockForConfiguration()
@@ -285,26 +289,26 @@ class MainViewController: UIViewController, BFTransmitterDelegate {
     }
     
     @objc func turnOffFlashlight() {
-        self.turnOnFlashlight(flag: false)
+        turnOnFlashlight(flag: false)
     }
     
     func showText(from dictionary: [String: Any]) {
         let text = dictionary[kTextKey] as! String
-        self.showText(text)
+        showText(text)
     }
     
     func showText(_ text: String) {
-        self.messageLabel.text = text
-        self.messageLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        messageLabel.text = text
+        messageLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         
-        self.resetView()
-        self.messageLabel.isHidden = false
+        resetView()
+        messageLabel.isHidden = false
     }
     
     func resetView() {
-        self.imageView.isHidden = true
-        self.messageLabel.isHidden = true
-        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        imageView.isHidden = true
+        messageLabel.isHidden = true
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
     
     func update(lastId receivedId: Double) -> Bool {

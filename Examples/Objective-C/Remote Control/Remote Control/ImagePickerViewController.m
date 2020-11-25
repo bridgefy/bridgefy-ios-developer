@@ -1,9 +1,5 @@
 //
-//  ImageViewController.m
-//  Remote Control
-//
-//  Created by Calvin on 7/7/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "ImagePickerViewController.h"
@@ -16,16 +12,6 @@
 @end
 
 @implementation ImagePickerViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)imageButtonPressed:(id)sender {
     UIButton *selectedButton = (UIButton *)sender;

@@ -1,9 +1,5 @@
 //
-//  ViewController.m
-//  Remote Control
-//
-//  Created by Calvin on 7/7/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "MainViewController.h"
@@ -63,11 +59,6 @@ typedef NS_ENUM(NSUInteger, Command) {
     NSString *clientMessage = @"Client Screen\n\n Long press with one finger to go to the admin panel. This will allow you to send commands to nearby devices.";
     [self showText:clientMessage];
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)longPressDetected:(UILongPressGestureRecognizer *)gesture {
@@ -193,16 +184,27 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
     NSLog(@"Event reported: %@", description);
 }
 
-- (BOOL)transmitter:(BFTransmitter *)transmitter shouldConnectSecurelyWithUser:(NSString *)user {
-    return NO; //if YES establish connection with encryption capacities.
-}
-
 - (void)transmitter:(BFTransmitter *)transmitter didDetectSecureConnectionWithUser:(nonnull NSString *)user {
     // A secure connection was detected,
     // A secure connection has encryption capabilities.
 }
 
-#pragma mark - 
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didDetectNearbyUser:(nonnull NSString *)user {
+    // A nearby user was detected
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didFailConnectingToUser:(nonnull NSString *)user error:(nonnull NSError *)error {
+    // An on-demand connection with a user has failed
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter userIsNotAvailable:(nonnull NSString *)user {
+    // A user is not nearby anymore
+}
+
+
+#pragma mark -
 
 - (void)processReceivedDictionary:(NSDictionary *)dict {
     

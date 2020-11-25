@@ -1,9 +1,5 @@
 //
-//  FlashlightViewController.m
-//  Remote Control
-//
-//  Created by Calvin on 7/7/17.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "FlashlightViewController.h"
@@ -16,15 +12,6 @@
 @end
 
 @implementation FlashlightViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)turnOnFlashlight:(id)sender {
     self.flashlightButton.enabled = NO;
