@@ -1,9 +1,5 @@
 //
-//  ChatListController.m
-//  ChatSample
-//
-//  Created by Daniel Heredia on 7/18/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "ChatListController.h"
@@ -352,6 +348,21 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
     }
 }
 
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didDetectNearbyUser:(nonnull NSString *)user {
+    // A nearby user was detected
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter didFailConnectingToUser:(nonnull NSString *)user error:(nonnull NSError *)error {
+    // An on-demand connection with a user has failed
+}
+
+
+- (void)transmitter:(nonnull BFTransmitter *)transmitter userIsNotAvailable:(nonnull NSString *)user {
+    // A user is not nearby anymore
+}
+
+
 #pragma mark - Name and message utils
 
 - (void)processNameForUser:(nonnull NSString *)user {
@@ -365,17 +376,17 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
         [self.peerNamesDictionary setObject:peerInfo forKey:user];
     }
     
-    // In case the other user don't have our devicename,
+    // In case the other user doesn't have our device name,
     // this is sent as an initial message.
     [self sendDeviceNameToUser:user];
-
+    
 }
 
 - (void)sendDeviceNameToUser:(NSString *)user {
     NSDictionary *dictionary = @{
-                                 peerNameKey: [[UIDevice currentDevice] name],
-                                 peerTypeKey: @(DeviceTypeIos)
-                                 };
+        peerNameKey: [[UIDevice currentDevice] name],
+        peerTypeKey: @(DeviceTypeIos)
+    };
     NSError *error;
     BFSendingOption options = (BFSendingOptionDirectTransmission | BFSendingOptionEncrypted);
     
@@ -422,12 +433,12 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
     
     // YES if the related conversation for the user is shown
     BOOL showingSameUser = !message.broadcast &&
-                            self.chatController &&
-                            [self.chatController.userUUID isEqualToString:user];
+    self.chatController &&
+    [self.chatController.userUUID isEqualToString:user];
     // YES if received message is for broadcast and broadcast is shown
     BOOL showingBroadcast = message.broadcast &&
-                            self.chatController != nil &&
-                            self.chatController.broadcastType;
+    self.chatController != nil &&
+    self.chatController.broadcastType;
     
     if (showingBroadcast || showingSameUser)
     {
@@ -492,7 +503,7 @@ didReceiveDictionary:(NSDictionary<NSString *, id> * _Nullable) dictionary
     
     NSMutableArray *messages;
     if (data) {
-         messages = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        messages = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
     
     if (messages == nil)

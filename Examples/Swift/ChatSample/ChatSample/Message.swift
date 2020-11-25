@@ -1,9 +1,5 @@
 //
-//  Message.swift
-//  ChatSample
-//
-//  Created by Daniel Heredia on 7/22/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit

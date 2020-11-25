@@ -1,9 +1,5 @@
 //
-//  ChatListController.swift
-//  ChatSample
-//
-//  Created by Daniel Heredia on 7/22/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 import UIKit
@@ -291,6 +287,18 @@ open class ChatListController: UITableViewController, BFTransmitterDelegate, Cha
             //update the state.
             self.chatController!.updateOnlineTo(true)
         }
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, didDetectNearbyUser user: String) {
+        // A nearby user was detected
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, didFailConnectingToUser user: String, error: Error) {
+        // An on-demand connection with a user has failed
+    }
+    
+    public func transmitter(_ transmitter: BFTransmitter, userIsNotAvailable user: String) {
+        // A user is not nearby anymore
     }
     
     // MARK: Name and message utils

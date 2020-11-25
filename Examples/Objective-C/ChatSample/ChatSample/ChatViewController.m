@@ -1,9 +1,5 @@
 //
-//  ChatViewController.m
-//  ChatSample
-//
-//  Created by Daniel Heredia on 7/18/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import "ChatViewController.h"
@@ -19,6 +15,10 @@ NSString* const broadcastConversation = @"broadcast";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
+    [self.tableView setEstimatedRowHeight:100];
+    
     [self setOnlineStatus];
     if (self.broadcastType) {
         self.navigationItem.title = @"Broadcast";
@@ -163,14 +163,11 @@ NSString* const broadcastConversation = @"broadcast";
 #pragma mark - Keyboard management
 - (void)keyboardShown:(NSNotification*)notification
 {
-
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect frame = [keyboardFrameBegin CGRectValue];
     CGFloat padding = 0.0;
-    if (@available(iOS 11, *)) {
-        padding = self.view.safeAreaInsets.bottom;
-    }
+    padding = self.view.safeAreaInsets.bottom;
 
     self.keyboardConstraint.constant = (frame.size.height * -1) + padding;
     [UIView animateWithDuration:.5f animations:^{

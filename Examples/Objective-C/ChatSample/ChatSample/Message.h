@@ -1,9 +1,5 @@
 //
-//  Message.h
-//  ChatSample
-//
-//  Created by Daniel Heredia on 7/19/16.
-//  Copyright © 2017 Bridgefy Inc. All rights reserved.
+//  Copyright © 2020 Bridgefy Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
