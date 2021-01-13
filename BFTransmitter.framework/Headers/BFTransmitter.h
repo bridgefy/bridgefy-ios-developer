@@ -25,6 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol BFTransmitterDelegate<NSObject>
 /**
+*  Indicates that a connection to a User failed.
+*
+*  @param transmitter The BFTransmitter instance that invokes the method.
+*  @param user User
+*  @param error    Related error.
+*/
+- (void)transmitter:(BFTransmitter *)transmitter didFailConnectingToUser:(NSString *)user error:(NSError *)error;
+/**
  *  Indicates that a packet was successfully to another user using direct transmission
  * (for more details see BFSendingOption).
  *
@@ -58,6 +66,22 @@ NS_ASSUME_NONNULL_BEGIN
                     packetID:(NSString *)packetID
                    broadcast:(BOOL)broadcast
                         mesh:(BOOL)mesh;
+/**
+*  Indicates that a new nearby user has been detected.
+*  This method is called only for on-demand operation mode.
+*
+*  @param transmitter The BFTransmitter instance that invokes the method.
+*  @param user User identifier.
+*/
+- (void)transmitter:(BFTransmitter *)transmitter didDetectNearbyUser:(NSString *)user;
+/**
+*  Indicates that a nearby user is no longer available.
+*  This method is called only for on-demand operation mode.
+*
+*  @param transmitter The BFTransmitter instance that invokes the method.
+*  @param user Nearby User identifier.
+*/
+- (void)transmitter:(BFTransmitter *)transmitter userIsNotAvailable:(NSString *)user;
 /**
  *  Indicates that a connection has been established.
  *
@@ -140,16 +164,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)transmitter:(BFTransmitter *)transmitter didDetectSecureConnectionWithUser:(NSString *)user;
 /**
- *  Asks if a secure connection should be  established by default with a detected user.
- *  If this method is not implemented, by default the secure connection won't be established.
- *
- *  @param transmitter The BFTransmitter instance that invokes the method.
- *  @param user The involved user.
- *
- *  @return YES if should be established, not otherwise.
- */
-- (BOOL)transmitter:(BFTransmitter *)transmitter shouldConnectSecurelyWithUser:(NSString *)user;
-/**
  *  This method is invoked when the transmitter is running but there isn't any network interface
  *  to use.
  *
@@ -176,6 +190,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <BFTransmitterDelegate> _Nullable delegate;
 /**
  *  Array of strings with the nearby detected peers.
+ */
+@property (nonatomic, readonly) NSArray<NSString *> * _Nullable detectedPeers;
+/**
+ *  Array of strings with the nearby connected peers.
  */
 @property (nonatomic, readonly) NSArray<NSString *> * _Nullable activePeers;
 /**
@@ -239,6 +257,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(id)initWithApiKey:(NSString *)apiKey andQueue:(dispatch_queue_t) queue;
 
+- (void)connectToUser:(NSString *)user
+                error:(NSError *_Nullable*_Nullable)error;
+
+- (void)disconnectFromUser:(NSString *)user
+                     error:(NSError *_Nullable*_Nullable)error;
+
 /**
  *  Send a dictionary to other user. This method is asynchronous, but an initial parameters 
  *  validation is performed over the current queue.
@@ -255,6 +279,23 @@ NS_ASSUME_NONNULL_BEGIN
                                options:(BFSendingOption)options
                                  error:(NSError *_Nullable*_Nullable)error;
 /**
+ *  Send a dictionary to other user with an specific BFTransmitterProfile. This method is asynchronous, but an initial parameters
+ *  validation is performed over the current queue.
+ *
+ *  @param dictionary Dictionary to send.
+ *  @param user       The user that is going to receive the dictionary. Nil if the packet includes the broadcast option.
+ *  @param options    Sending options (see BFSendingOptions fot further details).
+ *  @param profile Transmitter profile used to send the message through the mesh network.
+ *  @param error      Reference to an nil NSError object, it will be set if an error happens.
+ *
+ *  @return Returns an string with an identifier for the packet sent, will be nil if some error occurred.
+ */
+- (NSString * _Nullable)sendDictionary:(NSDictionary<NSString *, id> *)dictionary
+                                toUser:(NSString * _Nullable)user
+                               options:(BFSendingOption)options
+                               profile:(BFTransmitterProfile)profile
+                                 error:(NSError *_Nullable*_Nullable)error;
+/**
  *  Send an NSData object to other user. This method is asynchronous, but an initial parameters 
  *  validation is performed over the current queue.
  *
@@ -265,10 +306,26 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return  Returns an string with an identifier for the packet sent, will be nil if some error occurred.
  */
-
 - (NSString * _Nullable)sendData:(NSData *)data
                           toUser:(NSString * _Nullable)user
                          options:(BFSendingOption)options
+                           error:(NSError *_Nullable *_Nullable)error;
+/**
+ *  Send an NSData object to other user. This method is asynchronous, but an initial parameters
+ *  validation is performed over the current queue.
+ *
+ *  @param data    NSData to be sent to other user.
+ *  @param user    The user that is going to receive the dictionary. Nil if the packet includes the broadcast option.
+ *  @param options Sending options (see BFSendingOptions fot further details).
+ *  @param profile Transmitter profile used to send the message through the mesh network.
+ *  @param error   Reference to an nil NSError object, it will be set if an error happens.
+ *
+ *  @return  Returns an string with an identifier for the packet sent, will be nil if some error occurred.
+ */
+- (NSString * _Nullable)sendData:(NSData *)data
+                          toUser:(NSString * _Nullable)user
+                         options:(BFSendingOption)options
+                         profile:(BFTransmitterProfile)profile
                            error:(NSError *_Nullable *_Nullable)error;
 /**
  *  Send a dictionary and/or an NSData object to other user.  This method is asynchronous, but an initial 
@@ -287,6 +344,61 @@ NS_ASSUME_NONNULL_BEGIN
                                 toUser:(NSString * _Nullable)user
                                options:(BFSendingOption)options
                                  error:(NSError *_Nullable*_Nullable)error;
+/**
+ *  Send a dictionary and/or an NSData object to other user.  This method is asynchronous, but an initial
+ *  parameters validation is performed over the current queue.
+ *
+ *  @param dictionary Dictionary to send.
+ *  @param data    NSData to be sent to other user.
+ *  @param user    The user that is going to receive the dictionary. Nil if the packet includes the broadcast option.
+ *  @param options Sending options (see BFSendingOptions for further details).
+ *  @param profile Transmitter profile used to send the message through the mesh network.
+ *  @param error   Reference to an nil NSError object, it will be set if an error happens.
+ *
+ *  @return  Returns an string with an identifier for the packet sent, will be nil if some error occurred.
+ */
+- (NSString * _Nullable)sendDictionary:(NSDictionary<NSString *, id> * _Nullable)dictionary
+                              withData:(NSData * _Nullable)data
+                                toUser:(NSString * _Nullable)user
+                               options:(BFSendingOption)options
+                               profile:(BFTransmitterProfile)profile
+                                 error:(NSError *_Nullable*_Nullable)error;
+/**
+ *  Send a dictionary object through the gateway. This method is asynchronous, but an initial
+ *  parameters validation is performed over the current queue.
+ *
+ *  @param dictionary Dictionary to send.
+ *  @param options Sending options through gateway (see BFGatewayOption for further details).
+ *  @param error   Reference to an nil NSError object, it will be set if an error happens.
+ *
+ *  @return  Returns an string with an identifier for the packet sent, will be nil if some error occurred.
+ */
+- (NSString * _Nullable)sendDictionaryThroughGateway:(NSDictionary<NSString *, id> *)dictionary
+                                             options:(BFGatewayOption)options
+                                               error:(NSError *_Nullable*_Nullable)error;
+/**
+ *  Send a dictionary object through the gateway. This method is asynchronous, but an initial
+ *  parameters validation is performed over the current queue.
+ *
+ *  @param dictionary Dictionary to send.
+ *  @param options Sending options through gateway (see BFGatewayOption for further details).
+ *  @param profile Transmitter profile used to send the message through the mesh network.
+ *  @param error   Reference to an nil NSError object, it will be set if an error happens.
+ *
+ *  @return  Returns an string with an identifier for the packet sent, will be nil if some error occurred.
+ */
+- (NSString * _Nullable)sendDictionaryThroughGateway:(NSDictionary<NSString *, id> *)dictionary
+                                             options:(BFGatewayOption)options
+                                             profile:(BFTransmitterProfile)profile
+                                               error:(NSError *_Nullable*_Nullable)error;
+/**
+ *  Indicates if a user is currently nearby.
+ *
+ *  @param user Userser.
+ *
+ *  @return YES if is nearby, NO otherwise.
+ */
+- (BOOL)isUserNearby:(NSString *)user;
 /**
  *  Indicates if a user is currently available.
  *
@@ -328,21 +440,35 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)stop;
 /**
- *  Starts the BFTransmitter with an App Key and the default profile.
+ *  Starts the BFTransmitter with the provided App Key, the default profile and the default connection mode.
  */
 - (void)start;
 /**
- *  Starts the BFTransmitter with an App Key and a certain profile.
+ *  Starts the BFTransmitter defining the profile and using the default connection mode.
  *
- *  @param transmitterProfile Profile to be used for logs.
+ *  @param transmitterProfile Profile to be used for the lifetime of mesh messages.
  */
 - (void)startWithProfile:(BFTransmitterProfile)transmitterProfile;
+/**
+*  Starts the BFTransmitter defining the profile and connection mode.
+*
+*  @param transmitterProfile Profile to be used for the lifetime of mesh messages.
+*  @param connectionMode The mode to be used for connection with nearby peers
+*/
+- (void)startWithConnectionMode:(BFTransmitterConnectionMode)connectionMode;
 /**
  *  Imports manually a public session from another user in other that encrypted content can be sent
  *  to the other user without the need of establish a secure connection before.
  *
  *  @param key  Base64 key representation
  *  @param user Identifier of the user.
+ */
+- (void)startWithProfile:(BFTransmitterProfile)transmitterProfile
+       andConnectionMode:(BFTransmitterConnectionMode)connectionMode;
+/**
+ *  Starts the BFTransmitter defining the connection mode and using the default profile.
+ *
+ *  @param connectionMode The mode to be used for connection with nearby peers
  */
 - (void)savePublicKey:(NSString *)key forUser:(NSString *)user;
 /**

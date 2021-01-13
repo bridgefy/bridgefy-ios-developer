@@ -50,6 +50,24 @@ typedef NS_OPTIONS(NSUInteger, BFSendingOption) {
 };
 
 /**
+ * Set of options for sending messages through the gateway service.
+ */
+typedef NS_OPTIONS(NSUInteger, BFGatewayOption) {
+    /**
+     * Send the packet using wifi or cellular network
+     */
+    BFGatewayOptionWifiOrCellular = 0,
+    /**
+     * Send the packet only when wifi is available
+     */
+    BFGatewayOptionOnlyWifi,
+    /**
+     * Send the packet using only cellular network
+     */
+    BFGatewayOptionOnlyCellular
+};
+
+/**
  *  Set of options that represents the network status.
  */
 typedef NS_OPTIONS(NSInteger, BFNetworkConnectionStatus) {
@@ -76,6 +94,20 @@ typedef NS_OPTIONS(NSInteger, BFNetworkConnectionStatus) {
 };
 
 /**
+ * Connection modes that can be used to start the BFTransmitter instance,
+ * Automatic mode manages all the connections with nearby peers seamlessly to the user.
+ * On-demand mode lets the user decide which nearby peer to connect to.
+ * On-demand connection ONLY allows sending direct messages.
+ */
+typedef NS_ENUM(NSUInteger, BFTransmitterConnectionMode) {
+    /**
+     * Default connection mode.
+     */
+    BFTransmitterConnectionModeAutomatic = 0,
+    BFTransmitterConnectionModeOnDemand
+};
+
+/**
  *  Profiles that can be used to start the BFTransmitter instance,
  *  these profiles affect in different form how the data is transmitted,
  *  by now just one profile is available.
@@ -84,7 +116,18 @@ typedef NS_ENUM(NSUInteger, BFTransmitterProfile) {
     /**
      *  Default profile.
      */
-    BFTransmitterProfileDefault = 0
+    BFTransmitterProfileStandardNetwork = 0,
+    BFTransmitterProfileHighDensityNetwork,
+    BFTransmitterProfileSparseNetwork,
+    BFTransmitterProfileLongReach
+};
+
+/**
+  * Defines the platform of a peer.
+ */
+typedef NS_ENUM(NSUInteger, BFTransmitterPeerPlatform) {
+    BFTransmitterPeerPlatformAndroid = 0,
+    BFTransmitterPeerPlatformiOS
 };
 
 /**
@@ -242,6 +285,26 @@ typedef NS_ENUM(NSInteger, BFError) {
     /**
      * Indicates a warning in service use
      */
-    BFErrorServiceWarning = 50019
+    BFErrorServiceWarning = 50019,
+    /**
+     * Indicates a gateway message can't be sent
+     */
+    BFErrorGatewayMessage = 50020,
+    /**
+     * Indicates a call to a function is not valid, because it is not available in Automatic mode.
+     */
+    BFErrorFunctionNotAvailableInAutomaticMode = 50021,
+    /**
+     * Indicates a call to a function is not valid, because it is not available in OnDemand mode.
+     */
+    BFErrorFunctionNotAvailableInOnDemandMode = 50022,
+    /**
+     * Indicates an on-demand connection to a user failed.
+     */
+    BFErrorOnDemandConnectionToUserFailed = 50023,
+    /**
+     * Indicates sending a message failed using On-Demand mode.
+     */
+    BFErrorOnDemandSendingMessageFailed = 50024,
 };
 
