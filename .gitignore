@@ -71,3 +71,4 @@ fastlane/test_output
 
 # Framework
 BFTransmitter.framework/BFTransmitter
+./.idea

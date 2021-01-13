@@ -1,3 +1,7 @@
+<p align="center"><a href="https://bridgefy.me" target="_blank" rel="noopener noreferrer"><img width="400" src="https://admin.bridgefy.me/assets/img/bridgefy-logo.svg" alt="Vue logo"></a></p>
+
+![Cocoapods](https://img.shields.io/cocoapods/v/BFTransmitter) ![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-ios-developer) ![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-ios-developer?style=plastic)
+
 # Bridgefy Transmitter
 Bridgefy Transmitter is a library that allows the client to transmit data to nearby peers without the necessity of an Internet connection or an access point. It also implements a mesh-network transmission algorithm that enables devices to send data to peers that are so far away that they aren't visible to the client device.
 
