@@ -70,5 +70,5 @@ fastlane/test_output
 *.DS_Store
 
 # Framework
-BFTransmitter.framework/BFTransmitter
-./.idea
+BFTransmitter.framework/BFTransmitter/BFTransmitter
+.idea
