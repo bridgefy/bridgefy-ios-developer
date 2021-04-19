@@ -1,9 +1,21 @@
-<p align="center"><a href="https://bridgefy.me" target="_blank" rel="noopener noreferrer"><img width="400" src="https://admin.bridgefy.me/assets/img/bridgefy-logo.svg" alt="Vue logo"></a></p>
+### Bridgefy 
+
+<p align="center"><a href="https://bridgefy.me" target="_blank" rel="noopener noreferrer"><img width="400" src="https://bridgefy.me/wp-content/uploads/2021/04/bridgefy_logo_red.svg" alt="Vue logo"></a></p>
 
 ![Cocoapods](https://img.shields.io/cocoapods/v/BFTransmitter) ![GitHub last commit](https://img.shields.io/github/last-commit/bridgefy/bridgefy-ios-developer) ![GitHub issues](https://img.shields.io/github/issues-raw/bridgefy/bridgefy-ios-developer?style=plastic)
 
-# Bridgefy Transmitter
-Bridgefy Transmitter is a library that allows the client to transmit data to nearby peers without the necessity of an Internet connection or an access point. It also implements a mesh-network transmission algorithm that enables devices to send data to peers that are so far away that they aren't visible to the client device.
+### Overview
+
+The Bridgefy Software Development Kit (SDK) is a state-of-the-art, plug-and-play package of awesomeness that will let people use your mobile app when they don’t have access to the Internet by using mesh networks.
+
+Integrate the Bridgefy SDK into your [Android](https://github.com/bridgefy/bridgefy-android-samples) and [iOS](https://github.com/bridgefy/bridgefy-ios-developer) app to reach the 3.5 billion people that don’t always have access to an Internet connection, and watch engagement and revenue grow!
+
+<p>Website. https://bridgefy.me/sdk/</p>
+<p>Email. contact@bridgefy.me</p>
+<p>Twitter. https://twitter.com/bridgefy</p>
+<p>Facebook. https://www.facebook.com/bridgefy</p>
+
+---
 
  **IMPORTANT NOTE!**  
 This repository doesn't contain the official version of the framework. In order to run the example projects, please go to the [distribution repository][BRIDGEFY_DIST] to get the latest official version of `BFTransmitter.framework` and replace the local copy. You will also need to have an API key for every project you run, so please go to [Bridgefy website][BRIDGEFY_WEB] to know how to obtain it.
